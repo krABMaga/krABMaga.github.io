@@ -1,0 +1,14 @@
+{% extends "zerm/templates/index.html" %}
+
+{%- block main -%}
+<div class="post">
+    <h1 class="post-title">
+        {{ section.title }}
+    </h1>
+
+    <div class="post-content">
+        <img style=" margin-left: auto;margin-right: auto;" src="{{get_url(path="/images/rustab.png")}}"/>
+        {{ section.content | safe }}
+    </div>
+</div>
+{%- endblock main -%}

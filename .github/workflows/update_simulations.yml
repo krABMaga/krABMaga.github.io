@@ -1,0 +1,43 @@
+name: Update simulations
+
+on:
+  repository_dispatch:
+    types: [updated]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ubuntu Required Deps
+        run: |
+          sudo apt update
+          sudo apt install pkg-config libx11-dev libasound2-dev libudev-dev
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Update wasm, benchmark data and last_updated timestamps
+        run: |
+          python ./scripts/update.py
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Simulation static data automatic update
+          title: Simulation static data automatic update
+          delete-branch: true
