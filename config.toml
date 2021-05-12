@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://vibrant-perlman-339db2.netlify.app/"
+base_url = "https://rust-ab.github.io/"
 
 theme = "zerm"
 default_language = "en"
