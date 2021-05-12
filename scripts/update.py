@@ -35,6 +35,10 @@ if which("git") is None:
 if not os.path.exists("config.toml"):
     exit(f"{termColors.RED}You must execute this script from the root folder of the site project!{termColors.RESET}")
 
+cargoMakeInstall = subprocess.run(["cargo", "install", "cargo-make"])
+if cargoMakeInstall.returncode != 0:
+    exit(f"{termColors.RED}Cargo-make failed to install!{termColors.RESET}")
+
 # Allows defining the current working directory for a specific scope: https://stackoverflow.com/a/13197763/11826809
 class cd:
     """Context manager for changing the current working directory"""
