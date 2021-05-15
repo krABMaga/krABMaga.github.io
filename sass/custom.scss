@@ -1,6 +1,75 @@
 @import 'github';
 
+.page-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.text-content {
+  flex: 1;
+  margin-right: 50px;
+  min-width: 350px;
+  //flex-basis: 50vh;
+}
+
+.wasm-column {
+  display: flex;
+  align-self: flex-start;
+  flex: 1;
+  position: sticky;
+  top: 0;
+}
+
+.wasm-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.wasm-figure {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.wasm-warning {
+  font-weight: bold;
+}
+
 .wasm-iframe {
   overflow: hidden;
   border: none;
+  width: 100%;
+  min-width: 50vh;
+  pointer-events: none; // This might cause problems in the long run when visualizations will have an interactive UI.
+}
+
+.content-divider {
+  //display:flex;
+  margin-top: 5vh;
+  border-top: 2px solid grey;
+  padding-top: 3vh;
+  width: 100%;
+}
+
+.chart-content {
+  display: flex;
+  justify-content: center;
+}
+
+.chart-figure {
+  width: 60%;
+}
+
+.chart-container {
+  width: 100%;
+}
+
+.chart-canvas {
+  background-color: wheat;
 }
