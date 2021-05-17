@@ -1,4 +1,7 @@
-on: push
+on:
+  push:
+    branches:
+      - main
 name: Build and deploy GH Pages
 jobs:
   build:

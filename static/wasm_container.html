@@ -11,6 +11,16 @@
   </style>
 </head>
 <script type="module">
+  function adjustCanvasSize() {
+    const canvas = document.querySelector("canvas");
+    if(canvas) {
+      canvas.style.minWidth = '50vh';
+
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+    }
+  }
+
   // Get the name of the simulation to load as a GET parameter
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -20,7 +30,14 @@
   // Dynamically import the module
   const init = await import(wasm);
 
-  init.default()
+  try {
+    await init.default();
+  } finally {
+    adjustCanvasSize()
+  }
+
+  window.addEventListener('resize', adjustCanvasSize);
+
 </script>
 
 <body>

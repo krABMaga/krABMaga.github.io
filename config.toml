@@ -28,6 +28,7 @@ main_menu = [
               {url="/", name="Home"},
               {url="/boids", name="Boids"},
               {url="/wolfsheepgrass", name="Wolf Sheep Grass"},
+              {url="/antsforaging", name="Ants Foraging"}
 ]
 
 show_author = false
@@ -46,7 +47,8 @@ custom_css = "custom.scss"
 
 # How many menu items to show on desktop. if you set this to 0, only submenu
 # button will be visible.
-show_menu_items = 5
+
+show_menu_items = 10
 
 # set theme to full screen width.
 full_width = true

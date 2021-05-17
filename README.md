@@ -14,22 +14,40 @@ filename equal to the name of the folder containing the simulation project on th
 [Rust AB examples](https://github.com/rust-ab/rust-ab-examples) repository. The front matter requires some boilerplate
 that will be hopefully removed in recent releases. The template's as follows:
 
-```md
+```toml
 +++
 title = "Name of the simulation"
 [extra]
 last_updated = "2021-05-09"
 sim_name = "boids"
-charts = [
-  {name="Strong scaling", id="strong_scaling", csv="strong_scaling", type="line", caption="Lorem ipsum"}
-]
 +++
 ```
 The `last_updated` date should be set to the current date. When an example changes, a script will automatically update it.
 The `sim_name` should be equal to the name of the file and of the simulation. It will be used to fetch the current wasm binary,
 and the chart csv files, if any chart is specified.
-Charts are optional, and you can add several basic charts in the front matter without making a custom template. It is assumed
-that the data source for the charts is a csv file located within the `static/csv` folder.
+
+There's support for basic optional charts from csv files directly from the front matter, with the use of a specific set of directives as shown below:
+```toml
+[[extra.charts]]
+name="Strong scaling"
+id="strong_scaling"
+csv="strong_scaling"
+type="line"
+caption="Lorem ipsum"
+[extra.charts.xAxis]
+id = "thread_num"
+title = "Threads number"
+[extra.charts.yAxis]
+id = "total_seconds"
+title = "Total seconds"
+```
+
+It is assumed that the data source for the chart is a csv file located within the `static/csv` folder with a file name equal
+to the value given to the `csv` property. You can define multiple `[[extra.charts]]` blocks, the only requirement is that
+all the property are filled, with the id in particular being unique.
+
+You may also want to edit the `main_menu` property in the `config.toml` file in the root of the project to add a link to your
+newly made model page to the navigation bar menu.
 
 # Scripts
 
