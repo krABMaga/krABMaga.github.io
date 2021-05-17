@@ -29,10 +29,11 @@ class OutputHandler:
     REVERSE = "\033[;7m"
 
     def __init__(self):
-        self.githubRunner = os.environ.get('GITHUB_ACTIONS')
+        self.github_runner = os.environ.get('GITHUB_ACTIONS')
+        self.info(f"Running in a GitHub runner environment: {True if self.github_runner else False}")
 
     def print(self, message_type: str, message: str):
-        if self.githubRunner:
+        if self.github_runner:
             print(f"::{message_type} ::{message}")
         else:
             color = OutputHandler.YELLOW if type == "warning" else OutputHandler.RED
