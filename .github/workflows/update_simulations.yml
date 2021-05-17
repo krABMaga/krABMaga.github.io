@@ -33,7 +33,7 @@ jobs:
 
       - name: Update wasm, benchmark data and last_updated timestamps
         run: |
-          python ./scripts/update.py
+          python -u ./scripts/update.py
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
