@@ -125,7 +125,7 @@ dirlist = [
     if os.path.isdir(os.path.join("tmp_examples", simulation))
     and simulation != ".git"
     and simulation not in BLACKLIST
-    and (WHITELIST is None or simulation in WHITELIST)
+    and (not WHITELIST or simulation in WHITELIST)
 ]
 
 changedSims = set()
@@ -171,7 +171,7 @@ for simulation in dirlist:
                 targetCsvFolder = os.path.join("..", "..", "static", "csv", simulation)
                 targetCsv = os.path.join(targetCsvFolder, i)
                 if (os.path.exists(targetCsv) is False or
-                        open(sourceCsv, "rb").read() == open(targetCsv, "rb").read() is False):
+                        (open(sourceCsv, "rb").read() == open(targetCsv, "rb").read()) is False):
                     if not os.path.exists(targetCsvFolder):
                         os.mkdir(targetCsvFolder)  # copy does not automatically create intermediary folders
                     copy(sourceCsv, targetCsv)
