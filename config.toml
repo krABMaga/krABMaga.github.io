@@ -28,7 +28,8 @@ main_menu = [
               {url="/", name="Home"},
               {url="/boids", name="Boids"},
               {url="/wolfsheepgrass", name="Wolf Sheep Grass"},
-              {url="/antsforaging", name="Ants Foraging"}
+              {url="/antsforaging", name="Ants Foraging"},
+              {url="/virusnetwork", name="Virus on a Network"}
 ]
 
 show_author = false
