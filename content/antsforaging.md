@@ -5,7 +5,7 @@ last_updated = "2021-05-16"
 sim_name = "antsforaging"
 +++
 
-# Boids
+# Ants Foraging
 
 ---
 
