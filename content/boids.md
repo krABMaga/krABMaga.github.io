@@ -1,7 +1,7 @@
 +++
 title = "Boids"
 [extra]
-last_updated = "2021-05-12"
+last_updated = "2021-05-18"
 sim_name = "boids"
 +++
 

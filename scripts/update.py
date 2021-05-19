@@ -6,6 +6,7 @@ from datetime import datetime
 import re
 import fileinput
 from shutil import copy, copytree
+import argparse
 
 if os.name == "nt":
     os.system('color')  # needed on Windows to activate colored terminal text
@@ -13,7 +14,13 @@ if os.name == "nt":
 # template shouldn't be built and the .github folder is not an example
 BLACKLIST = ["template", ".github"]
 WHITELIST = None
-# todo take input parameters and throw them in whitelist
+
+parser = argparse.ArgumentParser(description='Update the wasm builds and chart data related to the simulations.')
+parser.add_argument('simulations', metavar='S', type=str, nargs='*',
+                    help='the name of the specific simulation to check')
+
+args = parser.parse_args()
+WHITELIST = args.simulations
 
 
 class OutputHandler:
@@ -118,7 +125,7 @@ dirlist = [
     if os.path.isdir(os.path.join("tmp_examples", simulation))
     and simulation != ".git"
     and simulation not in BLACKLIST
-    and (WHITELIST is None or simulation in WHITELIST)
+    and (not WHITELIST or simulation in WHITELIST)
 ]
 
 changedSims = set()
@@ -142,14 +149,13 @@ for simulation in dirlist:
         # filecmp compares metadata, which will definitely be different since we just cloned the examples repo. Wasm
         # binaries aren't large, so we just open them and compare the contents.
         if (os.path.exists(targetWasmJs) is False or
-                open(sourceWasmJs, "rb").read() == open(targetWasmJs, "rb").read() is False):
-            os.rename(os.path.join("target", "wasm.js"), os.path.join("..", "..", "static", "wasm", simulation + ".js"))
+                (open(sourceWasmJs, "rb").read() == open(targetWasmJs, "rb").read()) is False):
+            os.replace(sourceWasmJs, targetWasmJs)
             changedSims.add(simulation)
 
         if (os.path.exists(targetWasmBinary) is False or
-                open(sourceWasmBinary, "rb").read() == open(targetWasmBinary, "rb").read() is False):
-            os.rename(os.path.join("target", "wasm_bg.wasm"),
-                      os.path.join("..", "..", "static", "wasm", simulation + "_bg.wasm"))
+                (open(sourceWasmBinary, "rb").read() == open(targetWasmBinary, "rb").read()) is False):
+            os.replace(sourceWasmBinary, targetWasmBinary)
             changedSims.add(simulation)
 
         # update the assets files
@@ -165,7 +171,7 @@ for simulation in dirlist:
                 targetCsvFolder = os.path.join("..", "..", "static", "csv", simulation)
                 targetCsv = os.path.join(targetCsvFolder, i)
                 if (os.path.exists(targetCsv) is False or
-                        open(sourceCsv, "rb").read() == open(targetCsv, "rb").read() is False):
+                        (open(sourceCsv, "rb").read() == open(targetCsv, "rb").read()) is False):
                     if not os.path.exists(targetCsvFolder):
                         os.mkdir(targetCsvFolder)  # copy does not automatically create intermediary folders
                     copy(sourceCsv, targetCsv)
