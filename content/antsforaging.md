@@ -1,7 +1,7 @@
 +++
 title = "Ants Foraging"
 [extra]
-last_updated = "2021-05-18"
+last_updated = "2021-07-09"
 sim_name = "antsforaging"
 +++
 
