@@ -12,7 +12,7 @@ if os.name == "nt":
     os.system('color')  # needed on Windows to activate colored terminal text
 
 # template shouldn't be built and the .github folder is not an example
-BLACKLIST = ["template", ".github"]
+BLACKLIST = ["template", ".github", "wsg_model_exploration"]
 WHITELIST = None
 
 parser = argparse.ArgumentParser(description='Update the wasm builds and chart data related to the simulations.')
@@ -118,6 +118,11 @@ else:  # Project exists already, try to update it
             if pullProcess.returncode != 0:
                 outputHandler.error("The \"tmp_examples\" folder is in an invalid state (it probably has unstaged "
                                     "changes), delete it!")
+        with outputHandler.Group("Forcing a specific branch"):
+            pullProcess = subprocess.run(["git", "checkout", "visualization"])
+            if pullProcess.returncode != 0:
+                outputHandler.error("The checkout step failed!")
+
 
 dirlist = [
     simulation
@@ -133,9 +138,13 @@ changedSims = set()
 # Build wasm and copy benchmark data
 for simulation in dirlist:
     with cd(os.path.join("tmp_examples", simulation)):
+        with outputHandler.Group("Applying bevy_log wasm hotfix"):
+            pullProcess = subprocess.run(["cargo", "update", "-p", "tracing-wasm", "--precise", "0.2.0"])
+            if pullProcess.returncode != 0:
+                outputHandler.error("The bevy_log hotfix step failed!")
         outputHandler.info(f"Building {simulation}...")
         with outputHandler.Group(f"Build {simulation} wasm"):
-            cargoProcess = subprocess.run(["cargo", "make", "build-web", "--profile", "release"])
+            cargoProcess = subprocess.run(["cargo", "make", "--profile", "release", "build-web"])
             # An example failed to build, skip it
             if cargoProcess.returncode != 0:
                 outputHandler.warning(f"Simulation {simulation} failed to build, skipping...")

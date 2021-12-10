@@ -7,6 +7,17 @@ The embedded wasm binaries of the various Rust-AB based examples require the
 the responses of the wasm js files being served lacked the proper Content-Type header, required for js modules to be
 loaded per HTML spec.
 
+# Running in local
+
+You can easily run a local server with the whole site, along with the embedded wasm simulations, by simply running:
+```sh
+zola serve
+```
+If you want to update the wasm binaries, simply run the update script as such:
+```sh
+python scripts/update.py
+```
+
 # Contributing
 
 To add a new page for a specific simulation, simply create a new markdown file under the `content` folder, with a

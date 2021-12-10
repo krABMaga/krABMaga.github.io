@@ -45,8 +45,7 @@
   overflow: hidden;
   border: none;
   width: 100%;
-  min-width: 50vh;
-  pointer-events: none; // This might cause problems in the long run when visualizations will have an interactive UI.
+  min-width: 1000px;
 }
 
 .content-divider {

@@ -77,6 +77,7 @@
 
 <script>
     (function () {
+
         // Wait for the iframe to fully load, by observing changes in the body tag since the wasm module is deferred.
         const iframe = document.getElementById('wasm-iframe');
         iframe.contentWindow.addEventListener('DOMContentLoaded', (event) => {
@@ -86,6 +87,8 @@
             const callback = function (mutationsList, observer) {
                 // Update the iframe div parent (and the iframe itself) size
                 const canvas = iframe.contentDocument.querySelector('canvas');
+                iframe.style.minWidth = canvas.style.width;
+                iframe.setAttribute("style","min-width:" + canvas.style.width);
                 const canvasObserver = new MutationObserver((mutlist, obs) => {
                     iframe.style.height = canvas.clientHeight + "px";
                 });

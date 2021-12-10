@@ -1,0 +1,15 @@
++++
+title = "Schelling"
+[extra]
+last_updated = "2021-12-10"
+sim_name = "schelling"
++++
+
+# Schelling
+
+---
+
+This simulation is based on the Schelling's segregation model. The agents can belong to one of the
+two existing different groups, represented by differently colored hearts (blue or red).
+- If an agent has enough neighbours of the same group near himself, then he's happy and he will stay in his current location.
+- Otherwise, the agent will move randomly in the next step.

@@ -26,10 +26,12 @@ logo_text = "Rust-AB"
 # NOTE: `$BASE_URL/` must be included in the url name.
 main_menu = [
               {url="/", name="Home"},
-              {url="/boids", name="Boids"},
+              {url="/flockers", name="Flockers"},
               {url="/wolfsheepgrass", name="Wolf Sheep Grass"},
               {url="/antsforaging", name="Ants Foraging"},
-              {url="/virusnetwork", name="Virus on a Network"}
+              {url="/virusnetwork", name="Virus on a Network"},
+              {url="/forestfire", name="Forest fire"},
+              {url="/schelling", name="Schelling"}
 ]
 
 show_author = false
