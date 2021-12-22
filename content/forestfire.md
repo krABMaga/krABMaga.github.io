@@ -1,7 +1,7 @@
 +++
 title = "Forest fire"
 [extra]
-last_updated = "2021-12-10"
+last_updated = "2021-12-22"
 sim_name = "forestfire"
 +++
 
