@@ -23,10 +23,14 @@ execution and model visualization using the [Bevy game engine](https://bevyengin
 #### Agents
 
 The Rust-AB framework defines a trait `Agent` that can be implemented on a struct to define `Agent` specific functionalities,
-mainly the `step` method which specifies how the agent behaves for each simulation step, and the `SimState` associated type,
-to link the agent to the state it refers to. As for now, the Rust-AB framework doesn't allow clean multi-agent implementations yet,
-even though such a limitation can be easily circumvented by declaring a single agent type which encapsulates the various agent types
-of the model in analysis.
+mainly the `step` method which specifies how the agent behaves for each simulation step, and the `get_id` method,
+to uniquely identify an agent. There are also other methods, with default implementation, to improve agent control:
+
+- `is_stopped` notify the scheduler if a specific agent should be removed or not, based on some condition.
+- `before_step` and `after_step` to implement some operations before/after a step.
+
+The Rust-AB framework allow multi-agent implementations: you can define multiple 'Agent' that
+implement the trait, and [Wolf, Sheep & Grass](https://rust-ab.github.io/wolfsheepgrass/) is the main example of this feature.
 
 #### Simulation state
 
@@ -60,12 +64,12 @@ easily design his/her simulation by looping for a certain number of step or for 
 
 #### Data structures
 
-The Rust-AB framework exposes a few data structures based on the `DBDashMap`, a customized version of the 
+<!-- The Rust-AB framework exposes a few data structures based on the `DBDashMap`, a customized version of the 
 [Rust HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) that implements a double
 buffering technique to avoid indeterminism caused by the lack of knowledge of the agents' step execution order within a step.
 The `DBDashMap` implements the interior mutability pattern, which allows the user to safely write in it without having an actual
 mutable reference to the structure, because the reads are done on a different memory block than the writes. Only the `update`
-method actually requires a mutable reference, to swap the read and the write buffers and commit the changes.
+method actually requires a mutable reference, to swap the read and the write buffers and commit the changes. -->
 
 The currently implemented structures are:
 
@@ -73,11 +77,11 @@ The currently implemented structures are:
   2D real space with coordinates represented by 2D f64 tuples (`Real2D`).
   
 - `Grid2D`, a discrete field representing agents locations as 2D i64 tuples (`Int2D`). This structure keeps two copies of a DBDashMap in sync,
-  one the inverse of the other, to allow constant time access both by key (agent) and by value (position).
+  one the inverse of the other, to allow constant time access both by key (agent) and by value (position). There are two kind of Grid based on density, `SparseGrid2D` and `DenseGrid2D`
   
 - `NumberGrid2D`, a simpler version of the `Grid2D` to use with simpler values. This is useful to represent simulation spaces
   covered by a simple entity that can be represented with a non-agent structure. This data structure can be used with any
-  structure that can be cloned, most notably simple primitive values such as f64s.
+  structure that can be cloned, most notably simple primitive values such as f64s. As the previous grid, there are two implementations: `SparseNumberGrid2D` and `DenseNumberGrid2D`
   
 
 
