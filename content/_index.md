@@ -17,9 +17,36 @@ simulation subsystems fully separated.
 execution and model visualization using the [Bevy game engine](https://bevyengine.org/).
 
 ---
+# Usage
 
+Add this to your `Cargo.toml`:
+
+```toml
+[dependencies]
+rust-ab = { git="https://github.com/rust-ab/rust-ab.git" }
+```
+
+**Parallel execution**
+can be achieved by passing the `parallel` feature when running a simulation and specifying the number of threads to use:
+
+```sh 
+cargo run --release --features parallel -- --nt <thread_num>
+```
+
+
+**Model Visualization with [Bevy Game Engine](https://bevyengine.org/)** to support model visualization.
+```sh
+cargo run --release --features visualization
+```
+# Dependencies
+The visualization framework requires certain dependencies to run the simulation properly.
+- 💻 Windows: [VS2019 build tools](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16)
+- 🍎 MacOS: No dependencies needed.
+- 🐧 Linux: A few dependencies are needed. Check [here](https://github.com/bevyengine/bevy/blob/main/docs/linux_dependencies.md) for a list based on your distribution.
+---
+
+---
 # Architecture
-
 #### Agents
 
 The Rust-AB framework defines a trait `Agent` that can be implemented on a struct to define `Agent` specific functionalities,
@@ -77,11 +104,11 @@ The currently implemented structures are:
   2D real space with coordinates represented by 2D f64 tuples (`Real2D`).
   
 - `Grid2D`, a discrete field representing agents locations as 2D i64 tuples (`Int2D`). This structure keeps two copies of a DBDashMap in sync,
-  one the inverse of the other, to allow constant time access both by key (agent) and by value (position). There are two kind of Grid based on density, `SparseGrid2D` and `DenseGrid2D`
+  one the inverse of the other, to allow constant time access both by key (agent) and by value (position). There are two kind of Grid based on density, `SparseGrid2D` and `DenseGrid2D`.
   
 - `NumberGrid2D`, a simpler version of the `Grid2D` to use with simpler values. This is useful to represent simulation spaces
   covered by a simple entity that can be represented with a non-agent structure. This data structure can be used with any
-  structure that can be cloned, most notably simple primitive values such as f64s. As the previous grid, there are two implementations: `SparseNumberGrid2D` and `DenseNumberGrid2D`
+  structure that can be cloned, most notably simple primitive values such as f64s. As the previous grid, there are two implementations: `SparseNumberGrid2D` and `DenseNumberGrid2D`.
   
 
 
