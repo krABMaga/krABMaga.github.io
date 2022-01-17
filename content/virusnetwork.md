@@ -40,7 +40,7 @@ pub enum NodeStatus {
 
 #[derive(Clone, Copy)]
 pub struct NetNode {
-    pub id: u128,
+    pub id: u32,
     pub pos: Real2D,
     pub status: NodeStatus,
     pub virus_detected: bool,

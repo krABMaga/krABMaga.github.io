@@ -16,18 +16,19 @@ The main objective is to understand and explore the stability of this ecosystem,
 
 There are currently two versions of this model:
 - The simulation without the visualization framework. Outputs are the interaction between 2 agents (wolf eats sheep) and animal death. At each output, its step number is associated;
-- The simulation with the visualization framework enabled (either natively or compiled to WebAssembly). Allows the viewer to see wolves and sheeps moving around the map. Wolves try to follow sheeps. Grass growth is represented by different colors. Only when grass is dark green, it can be eaten by sheeps;
+- The simulation with the visualization framework enabled (either natively or compiled to WebAssembly). Allows the viewer to see wolves and sheeps moving around the map. Wolves try to follow sheeps. Grass growth is represented by different colors. Only when grass is dark green (full grown), it can be eaten by sheeps;
 
 ---
 
 # Implementation
 
-There is a main structure that represents an `Animal`, our simulation agent:
+With this example we tested mulit-agent scheduling: wolves and sheeps are different entities with their methods implementation, but both are `Agent`.
+
+`Wolf` and `Sheep` structs have same fields:
 ```rs
 #[derive(Copy, Clone)]
-pub struct Animal {
-    pub id: u128,
-    pub species: AnimalSpecies,
+pub struct Sheep/Wolf {
+    pub id: u32,
     pub animal_state: LifeState,
     pub loc: Int2D,
     pub last: Option<Int2D>,
@@ -36,26 +37,13 @@ pub struct Animal {
     pub prob_reproduction: f64,
 }
 ```
+They "move" on different Grid, because each grid can contain a single type of entity. For the same reason, grass has its own grid.
+To manage the process of birth and death, there are several elements into `State` struct:
+- `next_id` to properly assign id to animals when reproduction happens;
+- `new_sheeps` and `new_animals` are vectors to store agents created during this step. during `after_step` phase, `State` add these new elements to scheduler;
+- `eaten_grass` and `killed_sheep` allow to remove correct elements at the end of current step and they are use to prevent two agents on a same "prey", because food can be eaten only by one agent.
 
-And a trait to define animal behavior:
-```rs
-pub trait AnimalActions {
-    fn consume_energy(&mut self) -> LifeState;
-    fn act(&mut self, state: &State);
-    fn reproduce(&mut self, state: &State);
-    fn eat(&mut self, state: &State);
-    fn die(&mut self, state: &State);
-}
-```
 
-Animal behavior depends on `AnimalSpecies` value of field `species`:
-```rs
-#[derive(Copy, Clone, Debug)]
-pub enum AnimalSpecies {
-    Wolf,
-    Sheep,
-}
-```
 Before grids and schedule update, Animals can check prey state through `LifeState` enum:
 ```rs
 #[derive(Clone, Copy, Debug)]

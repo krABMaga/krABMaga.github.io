@@ -32,7 +32,7 @@ The structure of the main agent of this simulation, the `Bird`, is very simple:
 ```rs
 #[derive(Clone, Copy)]
 pub struct Bird {
-    pub id: u128,
+    pub id: u32,
     pub pos: Real2D,
     pub last_d: Real2D,
 }
@@ -42,14 +42,20 @@ Birds simply have a current and a previous location field, along with an ID to d
 
 The definition of the state is just as simple:
 ```rs
-pub struct BoidsState {
+pub struct Flocker {
+    pub step: u64,
     pub field1: Field2D<Bird>,
+    pub initial_flockers: u32,
+    pub dim: (f32, f32),
 }
 
 impl BoidsState {
-    pub fn new(w: f64, h: f64, d: f64, t: bool) -> BoidsState {
-        BoidsState {
-            field1: Field2D::new(w, h, d, t),
+    pub fn new(dim: (f32, f32), initial_flockers: u32) -> Self {
+        Flocker {
+            step: 0,
+            field1: Field2D::new(dim.0, dim.1, DISCRETIZATION, TOROIDAL),
+            initial_flockers,
+            dim,
         }
     }
 }
