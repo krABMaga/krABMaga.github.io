@@ -26,12 +26,12 @@ Add this to your `Cargo.toml`:
 rust-ab = { git="https://github.com/rust-ab/rust-ab.git" }
 ```
 
-**Parallel execution**
+<!-- **Parallel execution**
 can be achieved by passing the `parallel` feature when running a simulation and specifying the number of threads to use:
 
 ```sh 
 cargo run --release --features parallel -- --nt <thread_num>
-```
+``` -->
 
 
 **Model Visualization with [Bevy Game Engine](https://bevyengine.org/)** to support model visualization.
