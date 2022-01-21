@@ -26,6 +26,10 @@ Add this to your `Cargo.toml`:
 rust-ab = { git="https://github.com/rust-ab/rust-ab.git" }
 ```
 
+To simply run your simulation:
+```sh
+cargo run --release
+```
 <!-- **Parallel execution**
 can be achieved by passing the `parallel` feature when running a simulation and specifying the number of threads to use:
 
