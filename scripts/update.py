@@ -139,7 +139,7 @@ changedSims = set()
 for simulation in dirlist:
     with cd(os.path.join("tmp_examples", simulation)):
         with outputHandler.Group("Applying bevy_log wasm hotfix"):
-            pullProcess = subprocess.run(["cargo", "update", "-p", "tracing-wasm", "--precise", "0.2.0"])
+            pullProcess = subprocess.run(["cargo", "update", "-p", "tracing-wasm", "--precise", "0.2.1"])
             if pullProcess.returncode != 0:
                 outputHandler.error("The bevy_log hotfix step failed!")
         outputHandler.info(f"Building {simulation}...")
