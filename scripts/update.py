@@ -124,14 +124,16 @@ else:  # Project exists already, try to update it
                 outputHandler.error("The checkout step failed!")
 
 
-dirlist = [
-    simulation
-    for simulation in os.listdir("tmp_examples")
-    if os.path.isdir(os.path.join("tmp_examples", simulation))
-    and simulation != ".git"
-    and simulation not in BLACKLIST
-    and (not WHITELIST or simulation in WHITELIST)
-]
+# dirlist = [
+#   simulation
+#    for simulation in os.listdir("tmp_examples")
+#   if os.path.isdir(os.path.join("tmp_examples", simulation))
+#   and simulation != ".git"
+#   and simulation not in BLACKLIST
+#   and (not WHITELIST or simulation in WHITELIST)
+#]
+
+dirlist = [ "schelling" ]
 
 changedSims = set()
 
