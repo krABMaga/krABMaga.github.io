@@ -12,7 +12,7 @@ if os.name == "nt":
     os.system('color')  # needed on Windows to activate colored terminal text
 
 # template shouldn't be built and the .github folder is not an example
-BLACKLIST = ["template", ".github", "wsg_model_exploration"]
+BLACKLIST = ["template", ".github", ".git", "target", "wsg_model_exploration", "flockers_exploration", "sir_ga_exploration", "sir_model_exploration", "wsg_ga_exploration"]
 WHITELIST = None
 
 parser = argparse.ArgumentParser(description='Update the wasm builds and chart data related to the simulations.')
@@ -105,6 +105,16 @@ with outputHandler.Group("Installing cargo-make"):
     if cargoMakeInstall.returncode != 0:
         outputHandler.error("Cargo-make failed to install!")
 
+with outputHandler.Group("Installing wasm32-unknown-unknown target"):
+    wasm32TargetInstall = subprocess.run(["rustup", "target", "install", "wasm32-unknown-unknown"])
+    if wasm32TargetInstall.returncode != 0:
+        outputHandler.error("Wasm32-unknown-unknown target failed to install!")
+
+with outputHandler.Group("Installing wasm-bindgen-cli"):
+    wasmBindgenInstall = subprocess.run(["cargo", "install", "wasm-bindgen-cli", "--version", "0.2.79"])
+    if wasmBindgenInstall.returncode != 0:
+        outputHandler.error("Cargo-make failed to install!")
+
 # Clone the examples repo
 if not os.path.exists("tmp_examples"):
     outputHandler.info("Examples haven't been cloned yet, cloning now...")
@@ -118,79 +128,84 @@ else:  # Project exists already, try to update it
             if pullProcess.returncode != 0:
                 outputHandler.error("The \"tmp_examples\" folder is in an invalid state (it probably has unstaged "
                                     "changes), delete it!")
-        with outputHandler.Group("Forcing a specific branch"):
+        """ with outputHandler.Group("Forcing a specific branch"):
             pullProcess = subprocess.run(["git", "checkout", "visualization"])
             if pullProcess.returncode != 0:
-                outputHandler.error("The checkout step failed!")
+                outputHandler.error("The checkout step failed!") """
 
 
-# dirlist = [
-#   simulation
-#    for simulation in os.listdir("tmp_examples")
-#   if os.path.isdir(os.path.join("tmp_examples", simulation))
-#   and simulation != ".git"
-#   and simulation not in BLACKLIST
-#   and (not WHITELIST or simulation in WHITELIST)
-#]
-
-dirlist = [ "schelling" ]
+dirlist = [
+   simulation
+   for simulation in os.listdir("tmp_examples")
+   if os.path.isdir(os.path.join("tmp_examples", simulation))
+   and simulation not in BLACKLIST
+   and (not WHITELIST or simulation in WHITELIST)
+]
 
 changedSims = set()
 
 # Build wasm and copy benchmark data
-for simulation in dirlist:
-    with cd(os.path.join("tmp_examples", simulation)):
-        with outputHandler.Group("Applying bevy_log wasm hotfix"):
-            pullProcess = subprocess.run(["cargo", "update", "-p", "tracing-wasm", "--precise", "0.2.1"])
-            if pullProcess.returncode != 0:
-                outputHandler.error("The bevy_log hotfix step failed!")
-        outputHandler.info(f"Building {simulation}...")
-        with outputHandler.Group(f"Build {simulation} wasm"):
-            cargoProcess = subprocess.run(["cargo", "make", "--profile", "release", "build-web"])
-            # An example failed to build, skip it
-            if cargoProcess.returncode != 0:
-                outputHandler.warning(f"Simulation {simulation} failed to build, skipping...")
-                continue
+with cd("tmp_examples"):
 
-        sourceWasmJs = os.path.join("target", "wasm.js")
-        sourceWasmBinary = os.path.join("target", "wasm_bg.wasm")
-        targetWasmJs = os.path.join("..", "..", "static", "wasm", simulation + ".js")
-        targetWasmBinary = os.path.join("..", "..", "static", "wasm", simulation + "_bg.wasm")
+    with outputHandler.Group("Building all simulations..."):
+        # Build the list of packages to process with the -p flag prefixed
+        packages = [arg for sublist in map(lambda x: ["-p", x], dirlist) for arg in sublist]
+        buildProcess = subprocess.run(["cargo", "build", *packages, "--target", "wasm32-unknown-unknown", "--features", "visualization_wasm", "--release"])
+        if buildProcess.returncode != 0:
+            outputHandler.warning(f"Simulations failed to build, exiting...")
+            exit()
+        outputHandler.info("Simulations built successfully.")
 
-        # filecmp compares metadata, which will definitely be different since we just cloned the examples repo. Wasm
-        # binaries aren't large, so we just open them and compare the contents.
-        if (os.path.exists(targetWasmJs) is False or
-                (open(sourceWasmJs, "rb").read() == open(targetWasmJs, "rb").read()) is False):
-            os.replace(sourceWasmJs, targetWasmJs)
-            changedSims.add(simulation)
+    for simulation in dirlist:
+        with cd("target"):
+            with outputHandler.Group(f"Generating wasm artifacts for {simulation}..."):
+                simulationWasmFilePath = os.path.join("wasm32-unknown-unknown", "release", simulation + ".wasm")
+                wasmProcess = subprocess.run(["wasm-bindgen", "--out-dir", "pkg", "--out-name", simulation, "--target", "web", "--no-typescript", simulationWasmFilePath])
+                if wasmProcess.returncode != 0:
+                    outputHandler.warning(f"Simulation {simulation} failed to generate wasm artifacts, skipping...")
+                    continue
+                outputHandler.info("Wasm artifacts generated successfully.")
 
-        if (os.path.exists(targetWasmBinary) is False or
-                (open(sourceWasmBinary, "rb").read() == open(targetWasmBinary, "rb").read()) is False):
-            os.replace(sourceWasmBinary, targetWasmBinary)
-            changedSims.add(simulation)
+            sourceWasmJs = os.path.join("pkg", simulation + ".js")
+            sourceWasmBinary = os.path.join("pkg", simulation + "_bg.wasm")
+            targetWasmJs = os.path.join("..", "..", "static", "wasm", simulation + ".js")
+            targetWasmBinary = os.path.join("..", "..", "static", "wasm", simulation + "_bg.wasm")
 
-        # update the assets files
-        if simulation in changedSims:
-            sourceAssets = "assets"
-            targetAssets = os.path.join("..", "..", "static", "assets")
-            copytree(sourceAssets, targetAssets, dirs_exist_ok=True)
-            outputHandler.success(f"Simulation \"{simulation}\" wasm binaries updated successfully.")
+            # filecmp compares metadata, which will definitely be different since we just cloned the examples repo. Wasm
+            # binaries aren't large, so we just open them and compare the contents.
+            if (os.path.exists(targetWasmJs) is False or
+                    (open(sourceWasmJs, "rb").read() == open(targetWasmJs, "rb").read()) is False):
+                os.replace(sourceWasmJs, targetWasmJs)
+                changedSims.add(simulation)
 
-        try:
-            for i in os.listdir(os.path.join("benches", "results")):
-                sourceCsv = os.path.join("benches", "results", i)
-                targetCsvFolder = os.path.join("..", "..", "static", "csv", simulation)
-                targetCsv = os.path.join(targetCsvFolder, i)
-                if (os.path.exists(targetCsv) is False or
-                        (open(sourceCsv, "rb").read() == open(targetCsv, "rb").read()) is False):
-                    if not os.path.exists(targetCsvFolder):
-                        os.mkdir(targetCsvFolder)  # copy does not automatically create intermediary folders
-                    copy(sourceCsv, targetCsv)
-                    changedSims.add(simulation)
-            outputHandler.success(f"Benchmarks found for simulation \"{simulation}\"!")
-        except FileNotFoundError:
-            outputHandler.warning(f"Benchmarks not found for simulation \"{simulation}\"!")
-    outputHandler.success(f"Simulation {simulation} processed successfully.")
+            if (os.path.exists(targetWasmBinary) is False or
+                    (open(sourceWasmBinary, "rb").read() == open(targetWasmBinary, "rb").read()) is False):
+                os.replace(sourceWasmBinary, targetWasmBinary)
+                changedSims.add(simulation)
+
+        with cd(simulation):
+            # update the assets files
+            if simulation in changedSims:
+                sourceAssets = "assets"
+                targetAssets = os.path.join("..", "..", "static", "assets")
+                copytree(sourceAssets, targetAssets, dirs_exist_ok=True)
+                outputHandler.success(f"Simulation \"{simulation}\" wasm binaries updated successfully.")
+
+            try:
+                for i in os.listdir(os.path.join("benches", "results")):
+                    sourceCsv = os.path.join("benches", "results", i)
+                    targetCsvFolder = os.path.join("..", "..", "static", "csv", simulation)
+                    targetCsv = os.path.join(targetCsvFolder, i)
+                    if (os.path.exists(targetCsv) is False or
+                            (open(sourceCsv, "rb").read() == open(targetCsv, "rb").read()) is False):
+                        if not os.path.exists(targetCsvFolder):
+                            os.mkdir(targetCsvFolder)  # copy does not automatically create intermediary folders
+                        copy(sourceCsv, targetCsv)
+                        changedSims.add(simulation)
+                outputHandler.success(f"Benchmarks found for simulation \"{simulation}\"!")
+            except FileNotFoundError:
+                outputHandler.warning(f"Benchmarks not found for simulation \"{simulation}\"!")
+        outputHandler.success(f"Simulation {simulation} processed successfully.")
 
 # update the changed simulations markdown files last_updated variable and set it to today
 for sim in changedSims:
