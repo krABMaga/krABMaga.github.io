@@ -1,7 +1,7 @@
 +++
 title = "Virus on a Network"
 [extra]
-last_updated = "2022-03-20"
+last_updated = "2022-04-11"
 sim_name = "virusnetwork"
 +++
 
