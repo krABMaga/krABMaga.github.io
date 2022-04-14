@@ -11,12 +11,12 @@ ABMs are too heterogeneous to be managed and explored in a traditional way, beca
 
 Our framework provides several algorithms to explore parameter space:
 - [Parameter Sweeping](#parameter-sweeping);
-- [Genetic Algorithms](#genetic-algorithms);
+- [Genetic Algorithm](#genetic-algorithm);
 - [Bayesian Optimization](#bayesian-optimization);
 - [Random Search](#random-search);
 
 
-Because the number of simulations to run  can easily explode based on the parameters, the amount of values generated, the algorithm and its settings, we provide parallel, distributed (using MPI) and "on Cloud" (using AWS API) explorations to run multiple simulations simultaneously. At the moment, they are available for [Parameter Sweeping](#parameter-sweeping) and [Genetic Algorithms](#genetic-algorithms).
+Because the number of simulations to run  can easily explode based on the parameters, the amount of values generated, the algorithm and its settings, we provide parallel, distributed (using MPI) and "on Cloud" (using AWS API) explorations to run multiple simulations simultaneously. At the moment, they are available for [Parameter Sweeping](#parameter-sweeping) and [Genetic Algorithm](#genetic-algorithm).
 
 
 
@@ -76,4 +76,36 @@ let result = explore_ga_sequential!(
 ```
 To use model exploration using Genetic Algorithms you have to pass several functions to Rust-AB macro.
 In this way modelist can use specific functions based on his model or needs.
+
+---
+# Bayesian Optimization
+Bayesian optimization is a global optimization strategy. It is very useful to evaluate *black-boxes*, continuous functions that don't assume any functional forms, and functions with an high computational cost. Both are features of a simulation.
+
+This strategy is based on two functions:
+- Surrogate Function: Bayesian approximation of the objective function that can be sampled efficiently;
+- Acquisition Function: Technique by which the posterior probability is used to select the next sample from the search space;
+
+
+```rs
+let (x, y) = bayesian_opt!(
+    init_population, // initial points to setup algorithm
+    costly_function, // setup and exectution of a simulation, returning a cost
+    acquisition_function,
+    get_points, // generate point from parameter space as base of the iteration
+    check_domain, // check the point returned from an iteration of the algorithm
+    ITERATIONS, 
+);
+```
+
+To use model exploration based on Bayesian Optimization you have to pass several functions to Rust-AB macro.
+In this way modelist can use specific functions based on his model or needs.
+
+`bayesian_opt!` returns a couple composed of the point of the optimal solution found and the value of function cost in that point.
+
+---
+# Random Search
+
+Random Search is a family of algorithms based on the concept of: starting from a point *X* of paramater space, sample a set of points based on current position and move to   the point *Y* if *f(Y)* is the best of sampling and better than *f(X)*, where *f* is the cost function.
+This operation is iterated until you got your goal or reached tha maximum number of iterations.
+
 

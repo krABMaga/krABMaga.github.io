@@ -39,9 +39,16 @@ cargo run --release --features parallel -- --nt <thread_num>
 
 
 **Model Visualization with [Bevy Game Engine](https://bevyengine.org/)** to support model visualization.
+To run your simulation with visualization you can use two command:
 ```sh
-cargo run --release --features visualization
+cargo make run --release
 ```
+or 
+```sh
+cargo make serve --release
+```
+The first one to a traditional execution, the second one to execute simulation inside browser using **WASM**.
+
 # Dependencies
 The visualization framework requires certain dependencies to run the simulation properly.
 - 💻 Windows: [VS2019 build tools](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16)
@@ -51,6 +58,10 @@ The visualization framework requires certain dependencies to run the simulation 
 
 ---
 # Architecture
+
+<img style="width: 600px;height:400px;" src="rust-ab1.png"/>
+
+
 #### Agents
 
 The Rust-AB framework defines a trait `Agent` that can be implemented on a struct to define `Agent` specific functionalities,
