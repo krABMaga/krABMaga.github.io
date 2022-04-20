@@ -56,12 +56,10 @@ The visualization framework requires certain dependencies to run the simulation 
 - 🐧 Linux: A few dependencies are needed. Check [here](https://github.com/bevyengine/bevy/blob/main/docs/linux_dependencies.md) for a list based on your distribution.
 ---
 
----
+<!-- # How to run your first example simulaton -->
+
+<!-- --- -->
 # Architecture
-
-<img style="width: 600px;height:400px;" src="rust-ab1.png"/>
-
-
 #### Agents
 
 The Rust-AB framework defines a trait `Agent` that can be implemented on a struct to define `Agent` specific functionalities,
