@@ -8,26 +8,50 @@
             original implementation for now.
             #}
             {% if config.extra.show_menu_items is defined -%}
-                {% for menu_item in config.extra.main_menu | slice(end=config.extra.show_menu_items) -%}
+                {% for menu_item in config.extra.main_menu | slice(start=0, end=1) -%}
                     {# 
                     Original theme has sub-children checks on main-menu, not worrying about that here.
                     #}
+                 
+                        <li>
+                            <a href="{{ get_url(path=menu_item.url) }}">{{ menu_item.name }}</a>
+                        </li>
+                {% endfor -%}
+                
+                
+
+                <ul class="menu__sub-inner">
+                    <li class="menu__sub-inner-more-trigger">{{ config.extra.menu_more }} ▾</li>
+                    <ul class="menu__sub-inner-more hidden">
+                        {{ menu::items(menu=config.extra.main_menu | slice(start=1, end=8)) }}
+                    </ul>
+                </ul>
+
+                <li></li>
+
+                {% for menu_item in config.extra.main_menu | slice(start=8) -%}
+                    {# 
+                    Original theme has sub-children checks on main-menu, not worrying about that here.
+                    #}
+                 
                     <li>
-                        <a href="{{ get_url(path=menu_item.url) }}">{{ menu_item.name }}</a>
+                         <a href="{{ get_url(path=menu_item.url) }}">{{ menu_item.name }}</a>
                     </li>
                 {% endfor -%}
+                
 
-                {%- set main_len = config.extra.main_menu | length -%}
-                {%- set show_len = config.extra.show_menu_items -%}
 
-                {%- if main_len > show_len -%}
+<!--            {%- set main_len = config.extra.main_menu | length -%}
+                {%- set show_len = config.extra.show_menu_items -%} -->
+
+                <!-- {%- if main_len > show_len -%}
                     <ul class="menu__sub-inner">
                         <li class="menu__sub-inner-more-trigger">{{ config.extra.menu_more }} ▾</li>
                         <ul class="menu__sub-inner-more hidden">
                             {{ menu::items(menu=config.extra.main_menu | slice(start=config.extra.show_menu_items)) }}
                         </ul>
                     </ul>
-                {%- endif -%}
+                {%- endif -%} -->
                 {# Continues the original if-check at top of file for show_menu_items #}
             {% else -%}
                 {{ menu::items(menu=config.extra.main_menu) }}

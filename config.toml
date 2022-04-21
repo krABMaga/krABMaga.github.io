@@ -27,15 +27,15 @@ logo_text = "Rust-AB"
 # NOTE: `$BASE_URL/` must be included in the url name.
 main_menu = [
               {url="/", name="Home"},
-              {url="/model_exp/", name="Model Exploration"},
-              {url="/contrib/", name="Contributors"},
+              {url="/template", name="Template"},
               {url="/flockers", name="Flockers"},
               {url="/wolfsheepgrass", name="Wolf Sheep Grass"},
               {url="/antsforaging", name="Ants Foraging"},
               {url="/virusnetwork", name="Virus on a Network"},
               {url="/forestfire", name="Forest fire"},
               {url="/schelling", name="Schelling"},
-              
+              {url="/model_exp/", name="Model Exploration"},
+              {url="/contrib/", name="Contributors"},
 ]
 
 show_author = false
@@ -55,7 +55,7 @@ custom_css = "custom.scss"
 # How many menu items to show on desktop. if you set this to 0, only submenu
 # button will be visible.
 
-show_menu_items = 3
+show_menu_items = 12
 
 # set theme to full screen width.
 full_width = true
