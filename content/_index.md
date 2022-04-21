@@ -17,7 +17,7 @@ simulation subsystems fully separated.
 execution and model visualization using the [Bevy game engine](https://bevyengine.org/).
 
 ---
-# Usage
+<!-- # Usage
 
 Add this to your `Cargo.toml`:
 
@@ -30,14 +30,12 @@ To simply run your simulation:
 ```sh
 cargo run --release
 ```
-<!-- **Parallel execution**
+ **Parallel execution**
 can be achieved by passing the `parallel` feature when running a simulation and specifying the number of threads to use:
 
 ```sh 
 cargo run --release --features parallel -- --nt <thread_num>
-``` -->
-
-
+``` 
 **Model Visualization with [Bevy Game Engine](https://bevyengine.org/)** to support model visualization.
 To run your simulation with visualization you can use two command:
 ```sh
@@ -48,6 +46,7 @@ or
 cargo make serve --release
 ```
 The first one to a traditional execution, the second one to execute simulation inside browser using **WASM**.
+-->
 
 # Dependencies
 The visualization framework requires certain dependencies to run the simulation properly.
@@ -55,10 +54,55 @@ The visualization framework requires certain dependencies to run the simulation 
 - 🍎 MacOS: No dependencies needed.
 - 🐧 Linux: A few dependencies are needed. Check [here](https://github.com/bevyengine/bevy/blob/main/docs/linux_dependencies.md) for a list based on your distribution.
 ---
+# How to run your first example simulaton
+First of all, install latest version of [Rust](https://www.rust-lang.org/tools/install). Follow steps to setup Rust toolchain (*cargo*, *rustc* and *rustup*).
 
-<!-- # How to run your first example simulaton -->
+Now, you can download/clone all available Rust-AB examples from our github repository called [rust-ab-examples](https://github.com/rust-ab/rust-ab-examples).
 
-<!-- --- -->
+To run a simulation, go to root directory of a model, for example `/path/to/rust-ab-examples/flockers`. With command `ls`, you should be able to see a typcal Rust-AB simulation struct:
+- src: main folder with code. It contains `main.rs` file and two directories for model and visulization components.
+- Cargo.toml: Configuration file for Rust project, with dependencies and features.
+- assets: an images folder. It contains all the icons that can be used for visualization.
+- Makefile.toml: another configuration file, necessary to a correct execution of visualization.
+
+Inside the root directory of model that you choose, you can run a models with or without visualization. 
+
+To simply run your simulation, with no visualization:
+```sh
+cargo run --release
+```
+Running in this way, you can see our `Simulation Terminal` based on [tui-rs](https://github.com/fdehau/tui-rs), a rust library that provides components to create terminal with an interface. As a modelist, you can use Rust-AB macros to create several plots, print logs and add a model description (shown using a popup)
+
+<img style="width: 500;height:500;margin-left: auto;margin-right: auto;" src="tui-wsg.gif"/>
+
+To run a model with visualization enables, you have to start the simulation with the command:
+```sh
+cargo run --release --features  visualization
+
+# Alternative command. Requires 'cargo make' installed
+cargo make run --release 
+```
+
+
+---
+# How to write your first model
+If you don't start from our [Template](https://github.com/rust-ab/rust-ab-examples/tree/main/template), add this to your `Cargo.toml`:
+```toml
+[dependencies]
+rust-ab = { git="https://github.com/rust-ab/rust-ab.git" }
+
+[features]
+visualization = ["rust-ab/visualization"]
+visualization_wasm = ["rust-ab/visualization_wasm"]
+```
+
+
+
+---
+# How to contribute
+
+---
+
 # Architecture
 #### Agents
 

@@ -22,18 +22,19 @@ theme_color = "orange"
 # Link in logo. Default returns you to $BASE_URL.
 logo_text = "Rust-AB"
 
+
 # Menu items to display. You define a url and the name of the menu item.
 # NOTE: `$BASE_URL/` must be included in the url name.
 main_menu = [
               {url="/", name="Home"},
               {url="/model_exp/", name="Model Exploration"},
+              {url="/contrib/", name="Contributors"},
               {url="/flockers", name="Flockers"},
               {url="/wolfsheepgrass", name="Wolf Sheep Grass"},
               {url="/antsforaging", name="Ants Foraging"},
               {url="/virusnetwork", name="Virus on a Network"},
               {url="/forestfire", name="Forest fire"},
               {url="/schelling", name="Schelling"},
-              {url="/contrib/", name="Contributors"},
               
 ]
 
@@ -54,7 +55,7 @@ custom_css = "custom.scss"
 # How many menu items to show on desktop. if you set this to 0, only submenu
 # button will be visible.
 
-show_menu_items = 10
+show_menu_items = 3
 
 # set theme to full screen width.
 full_width = true
@@ -74,7 +75,7 @@ center = false
 # copyright = "copyright notice here"
 
 # Displayed as title of drop-down menu when size of main_menu > show_menu_items.
-menu_more = "show more"
+menu_more = "Examples"
 
 # Displayed after teaser text for a blog post.
 read_more = "read more"

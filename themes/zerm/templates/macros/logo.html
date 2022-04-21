@@ -1,7 +1,9 @@
 {%- macro logo() -%}
 <a href="{%- if config.extra.logo_home_link -%}{{ config.extra.logo_home_link }}{%- else -%}{{ config.base_url }}{%- endif -%}">
     <div class="logo">
-        {{config.extra.logo_text | default(value="Terminal") }}
+        <img style="width: 50;height:50px;margin-left: auto;margin-right: auto;" src="{{get_url(path="/images/rustab.png")}}"/>
+        <!-- {{config.extra.logo_text | default(value="Terminal") }} -->
+
     </div>
 </a>
 {%- endmacro logo -%}
