@@ -17,6 +17,21 @@ simulation subsystems fully separated.
 execution and model visualization using the [Bevy game engine](https://bevyengine.org/).
 
 ---
+# Table of contents
+<!-- no toc -->
+- [Table of contents](#table-of-contents)
+- [Dependencies](#dependencies)
+- [How to run your first example simulaton](#how-to-run-your-first-example-simulaton)
+- [How to write your first model](#how-to-write-your-first-model)
+- [Macros for playing with Simulation Terminal](#macros-for-playing-with-simulation-terminal)
+- [How to contribute](#how-to-contribute)
+- [Architecture](#architecture)
+  - [Agents](#agents)
+  - [Simulation state](#simulation-state)
+  - [Schedule](#schedule)
+  - [Data structures](#data-structures)
+
+---
 <!-- # Usage
 
 Add this to your `Cargo.toml`:
@@ -71,16 +86,25 @@ To simply run your simulation, with no visualization:
 ```sh
 cargo run --release
 ```
-Running in this way, you can see our `Simulation Terminal` based on [tui-rs](https://github.com/fdehau/tui-rs), a rust library that provides components to create terminal with an interface. As a modelist, you can use Rust-AB macros to create several plots, print logs and add a model description (shown using a popup)
+Running in this way, you can see our `Simulation Terminal` (better known as `Simulation Monitor`)) based on [tui-rs](https://github.com/fdehau/tui-rs), a rust library that provides components to create terminal with an interface. As a modelist, you can use Rust-AB macros to create several plots, print logs and add a model description (shown using a popup)
 
 <img style="width: 500;height:500;margin-left: auto;margin-right: auto;" src="tui-wsg.gif"/>
 
-To run a model with visualization enables, you have to start the simulation with the command:
+
+Based on [Bevy game engine](https://bevyengine.org/), it's possible to run simulation with visualization. It's also available a menu to start and stop simulations and a slider to set simulation speed.
+To run a model with visualization enabled, you have to start the simulation with the command:
 ```sh
 cargo run --release --features  visualization
 
 # Alternative command. Requires 'cargo make' installed
 cargo make run --release 
+```
+
+In addition to the classical visualization, you can run your Rust-AB simulation inside your browser using (*Web Assembly*)[https://webassembly.org]. 
+This is possible with the command:
+```sh
+# Requires 'cargo make' installed
+cargo make serve --release 
 ```
 
 
@@ -96,10 +120,88 @@ visualization = ["rust-ab/visualization"]
 visualization_wasm = ["rust-ab/visualization_wasm"]
 ```
 
+We **strongly** recommend to use [Template](https://github.com/rust-ab/rust-ab-examples/tree/main/template) or any other example as base of a new project, especially if you want to provide any visualization.
 
+Each Rust-AB model needs structs that implements our *Traits*, one for *State* and the other for *Agent*. In the *State* struct you have to put *Agent* field(s), because it represents the ecosystem of a simulation. More details for each Rust-AB componenet are in the [Architecture](#architecture) section.
+
+The simplest part is `main.rs`, because is similar for each example.
+You can define two *main* functions using **cfg** directive, that can remove code based on which features are (not) enabled.  
+Without visualization, you have only to use *simulate!* to run simulation, passing a state, step number and how may time repeat your simulation. 
+With visualization, you have to set graphical settings (like dimension or background) and call *start* method.
+```rs
+// Main used when only the simulation should run, without any visualization.
+#[cfg(not(any(feature = "visualization", feature = "visualization_wasm")))]
+fn main() {
+  let dim = (200., 200.);
+  let state = Flocker::new(dim, num_agents);
+  let step = 10;
+  let reps = 1;
+  let num_agents = 100;  
+  let _ = simulate!(state, step, reps);
+}
+
+// Main used when a visualization feature is applied.
+#[cfg(any(feature = "visualization", feature = "visualization_wasm"))]
+fn main() {
+  let dim = (200., 200.);
+  let num_agents = 100;
+  let state = Flocker::new(dim, num_agents);
+  Visualization::default()
+      .with_window_dimensions(1000., 700.)
+      .with_simulation_dimensions(dim.0 as f32, dim.1 as f32)
+      .with_background_color(Color::rgb(0., 0., 0.))
+      .with_name("Flockers")
+      .start::<VisState, Flocker>(VisState, state);
+}
+
+```
+---
+# Macros for playing with Simulation Terminal
+`Simulation Terminal` is enabled by default using macro `simulate!`, so can be used passing a state, step number and how may time repeat your simulation..
+That macro has a fourth optional parameter, a boolean. When `false` is passed, `Simulation Terminal` is disabled.
+```rs
+($s:expr, $step:expr, $reps:expr $(, $flag:expr)?) => {{
+      // Macro code 
+}}
+```
+
+You can create tabs and plot your data using two macro:
+- `addplot!` let you create a new plot that will be displayed in its own tab.
+```rs
+addplot!(String::from("Chart Name"), String::from("xxxx"), String::from("yyyyy"));
+```
+- `plot!` to add a point to a plot. Points can be added during simulation execution, for example inside `after_step` method.
+  You have to pass plot name, series name, x value and y value. Coordinate values need to be `f64`.
+```rs
+plot!(String::from("Chart name"), String::from("s1"), x, y);
+```
+
+On Terminal home page there is also a *log section*, you can plot log messages when some event needs to be noticed.
+You can navigate among all logs using ↑↓ arrows.
+To add a log use the macro `log!`, passing a `LogType` (an enum) and the log message.
+```rs
+ log!(LogType::Info, String::from("Log Message"));
+```
+
+Are available four type of Logs:
+```rs
+pub enum LogType {
+    Info,
+    Warning,
+    Error,
+    Critical,
+}
+```
 
 ---
 # How to contribute
+If you want to test, add or change something inside Rust-AB engine, you can clone [main repo](https://github.com/rust-ab/rust-ab) locally, and change dependecy inside `Cargo.toml` of your examples:
+
+```toml
+[dependencies]
+# rust-ab = { git="https://github.com/rust-ab/rust-ab.git" }
+rust-ab = { path="path/to/rust-ab"}
+```
 
 ---
 
