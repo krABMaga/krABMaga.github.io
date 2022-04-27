@@ -75,10 +75,10 @@ First of all, install latest version of [Rust](https://www.rust-lang.org/tools/i
 Now, you can download/clone all available Rust-AB examples from our github repository called [rust-ab-examples](https://github.com/rust-ab/rust-ab-examples).
 
 To run a simulation, go to root directory of a model, for example `/path/to/rust-ab-examples/flockers`. With command `ls`, you should be able to see a typcal Rust-AB simulation struct:
-- src: main folder with code. It contains `main.rs` file and two directories for model and visulization components.
-- Cargo.toml: Configuration file for Rust project, with dependencies and features.
-- assets: an images folder. It contains all the icons that can be used for visualization.
-- Makefile.toml: another configuration file, necessary to a correct execution of visualization.
+- `src`: main folder with code. It contains `main.rs` file and two directories for model and visulization components.
+- `Cargo.toml`: Configuration file for Rust project, with dependencies and features.
+- `assets`: an images folder. It contains all the icons that can be used for visualization.
+- `Makefile.toml`: another configuration file, necessary to a correct execution of visualization.
 
 Inside the root directory of model that you choose, you can run a models with or without visualization. 
 
@@ -88,7 +88,35 @@ cargo run --release
 ```
 Running in this way, you can see our `Simulation Terminal` (better known as `Simulation Monitor`)) based on [tui-rs](https://github.com/fdehau/tui-rs), a rust library that provides components to create terminal with an interface. As a modelist, you can use Rust-AB macros to create several plots, print logs and add a model description (shown using a popup)
 
-<img style="width: 500;height:500;margin-left: auto;margin-right: auto;" src="tui-wsg.gif"/>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 45.0%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+
+<div class="row">
+  <div class="column">
+    <img style="width: 500;height:500;margin-left: auto; " src="images/tui-wsg.gif"/>
+  </div>
+  <div class="column">
+    <img style="width: 500;height:500;margin-left: auto;" src="images/ant.gif"/>
+  </div>
+</div>
+
 
 
 Based on [Bevy game engine](https://bevyengine.org/), it's possible to run simulation with visualization. It's also available a menu to start and stop simulations and a slider to set simulation speed.
@@ -269,5 +297,6 @@ The currently implemented structures are:
   covered by a simple entity that can be represented with a non-agent structure. This data structure can be used with any
   structure that can be cloned, most notably simple primitive values such as f64s. As the previous grid, there are two implementations: `SparseNumberGrid2D` and `DenseNumberGrid2D`.
   
-
+- `Network` and `HNetwork` to connect any kind of nodes using `Edge`/`HEdge`. With `Network` you can define both directed and undirected graphs and connect a couple of nodes with an edge with label and/or weight. `HNetwork` is a generalization of a `Network` to represent hypergraph. In this case, `HEdge` is an `HashSet` of nodes.
+  With this fields you can reproduce any kind of graph or network, such as for our example [`Virus on a Network`](/virusnetwork).
 

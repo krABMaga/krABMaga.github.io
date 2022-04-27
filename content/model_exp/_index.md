@@ -16,9 +16,15 @@ Our framework provides several algorithms to explore parameter space:
 - [Random Search](#random-search);
 
 
-Because the number of simulations to run  can easily explode based on the parameters, the amount of values generated, the algorithm and its settings, we provide parallel, distributed (using MPI) and "on Cloud" (using AWS API) explorations to run multiple simulations simultaneously. At the moment, they are available for [Parameter Sweeping](#parameter-sweeping) and [Genetic Algorithm](#genetic-algorithm).
+Because the number of simulations to run  can easily explode based on the parameters, the amount of values generated, the algorithm and its settings, we provide parallel, distributed (using MPI) and "on Cloud" (using AWS API) explorations to run multiple simulations simultaneously. At the moment, they are available for [Parameter Sweeping](#parameter-sweeping) and [Genetic Algorithm](#genetic-algorithm). 
 
+Model Exploration with MPI is based on [`rsmpi`](https://github.com/rsmpi/rsmpi), an MPI binding to Rust. Of course to use it you need a MPI distribution installed on your machine(s).
+`rsmpi` officially supports:
+   - OpenMPI 4.0.3 on Ubuntu-20.04, 4.1.2 on macOS.
+   - MPICH 3.3.2 on Ubuntu 20.04.
+   - MS-MPI (Windows) 10.1.1 on Windows 2022.
 
+To use exploration with MPI you have to enable `distributed-mpi` feature.
 
 ---
 # Parameter Sweeping
@@ -32,6 +38,8 @@ The only restriction is defining input and output parameters inside your *State*
 
 
 ```rs
+//explore_parallel! for parallel version
+//explore_distributed_mpi! for distributed version
 let result = explore_sequential!(
   STEP, REPS, State,  // Simulation Step, Repetitions for each configuration, name of your State struct
   input{
@@ -60,6 +68,8 @@ To use this algorithm we need to define 5 functions:
 
 
 ```rs
+//explore_ga_parallel! for parallel version
+//explore_ga_distributed_mpi! for distributed version
 let result = explore_ga_sequential!(
     init_population,
     fitness,

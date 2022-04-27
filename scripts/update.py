@@ -12,7 +12,7 @@ if os.name == "nt":
     os.system('color')  # needed on Windows to activate colored terminal text
 
 # template shouldn't be built and the .github folder is not an example
-BLACKLIST = [".github", ".git", "target", "forestfire_bayesian",  "sir_ga_exploratin", "sir_bayesian"]
+BLACKLIST = [".github", ".git", "target", "forestfire_bayesian",  "sir_ga_exploration", "sir_bayesian"]
 WHITELIST = None
 
 parser = argparse.ArgumentParser(description='Update the wasm builds and chart data related to the simulations.')
