@@ -2,11 +2,18 @@
 
 {%- block main -%}
 <div class="post">
+    <div style="text-align: center;">
+        <img style="width: 200;height:200px;margin-left: auto;margin-right: auto;" src="/images/krabmaga.png"/>
+        <h1>krABMaga</h1>
+        <h3>A modern novel developing art for reliable and efficient ABM simulation with the Rust language.</h3>
+    </div>
+    
     <h1 class="post-title">
         {{ section.title }}
     </h1>
 
     <div class="post-content">
+        
         <!-- <img style="width: 200px;height:200px;margin-left: auto;margin-right: auto;" src="{{get_url(path="/images/rustab.png")}}"/> -->
         {{ section.content | safe }}
     </div>

@@ -1,16 +1,66 @@
 {% macro header() %}
-<header class="header">
+
+<style>
+/*background: #211f1a*/
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.header {
+  padding: 10px 10px 0px 0px;
+}
+
+.content {
+  z-index:-1;
+  position:relative;
+  padding: 16px;
+
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 90px 0px 0px;
+
+}
+
+.sticky + .content {
+  padding-top: 102px;
+
+}
+
+</style>
+
+
+ <header class="header" id="myHeader" style="background: #211f1a ;" >
     <div class="header__inner">
         <div class="header__logo">
             {{ logo::logo() }}
         </div>
         <div class="menu-trigger">menu</div>
-    </div>
-    {# Check if there are menu items to render, yes if > 0 #}
+      </div>
+      {# Check if there are menu items to render, yes if > 0 #}
     {%- set num = config.extra.main_menu | length -%}
-    {% if num > 0 -%}
+    {% if num > -1 -%}
         {{ menu::menu() }}
     {% endif -%}
+
+
 </header>
+
+<script>
+  window.onscroll = function() {myFunction()};
+  
+  var header = document.getElementById("myHeader");
+  var sticky = header.offsetTop;
+  
+  function myFunction() {
+    if (window.pageYOffset > sticky) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+  }
+  </script>
+
+
 {% endmacro header %}
 

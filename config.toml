@@ -17,10 +17,10 @@ highlight_theme = "axar"
 
 [extra]
 # zerm
-author = "CarbonHell"
+author = "Rust-AB"
 theme_color = "orange"
 # Link in logo. Default returns you to $BASE_URL.
-logo_text = "Rust-AB"
+logo_text = "krABMaga"
 
 
 # Menu items to display. You define a url and the name of the menu item.

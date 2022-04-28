@@ -111,6 +111,7 @@ To use model exploration based on Bayesian Optimization you have to pass several
 In this way modelist can use specific functions based on his model or needs.
 
 `bayesian_opt!` returns a couple composed of the point of the optimal solution found and the value of function cost in that point.
+This macro needs `bayesian` feature enabled.
 
 ---
 # Random Search
