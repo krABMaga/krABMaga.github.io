@@ -1,16 +1,19 @@
 {% macro header() %}
 
 <style>
-/*background: #211f1a*/
+/* background: #211f1a
 /* The sticky class is added to the header with JS when it reaches its scroll position */
 .header {
+  /* overflow: hidden; */
   padding: 10px 10px 0px 0px;
+  background: #211f1a ;
+  z-index:99;
 }
 
 .content {
-  z-index:-1;
+  z-index:0;
   position:relative;
-  padding: 16px;
+  padding: 10px 0px 0px 0px;
 
 }
 
@@ -19,11 +22,6 @@
   top: 0;
   width: 100%;
   padding: 10px 90px 0px 0px;
-
-}
-
-.sticky + .content {
-  padding-top: 102px;
 
 }
 
@@ -59,7 +57,7 @@
       header.classList.remove("sticky");
     }
   }
-  </script>
+</script>
 
 
 {% endmacro header %}

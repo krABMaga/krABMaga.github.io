@@ -3,8 +3,6 @@ title = "Introduction"
 insert_anchor_links = "right"
 +++
 
----
-
 [krABMaga](https://github.com/rust-ab/rust-ab) is a discrete events simulation engine for developing ABM simulation
 written in the [Rust language](https://www.rust-lang.org/).
 
@@ -16,11 +14,10 @@ simulation subsystems fully separated.
 ⚡ The actual community effort on [krABMaga](https://github.com/rust-ab/rust-ab) is mainly devoted to supporting parallel
 execution and model visualization using the [Bevy game engine](https://bevyengine.org/).
 
----
-<h1 class="post-title">
-Table of contents
-</h1>
 
+---
+
+## Table of contents
 <!-- no toc -->
 - [Table of contents](#table-of-contents)
 - [Dependencies](#dependencies)
@@ -36,9 +33,7 @@ Table of contents
 
 ---
 
-<h1 class="post-title">
-Dependencies
-</h1>
+# Dependencies
 
 The visualization framework requires certain dependencies to run the simulation properly.
 - 💻 Windows: [VS2019 build tools](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16)
@@ -115,9 +110,7 @@ cargo make serve --release
 
 
 ---
-<h1 class="post-title">
-How to write your first model
-</h1>
+# How to write your first model
 
 If you don't start from our [Template](https://github.com/rust-ab/rust-ab-examples/tree/main/template), add this to your `Cargo.toml`:
 ```toml
@@ -164,10 +157,9 @@ fn main() {
 }
 
 ```
+
 ---
-<h1 class="post-title">
-Macros for playing with Simulation Terminal
-</h1>
+# Macros for playing with Simulation Terminal
 
 `Simulation Terminal` is enabled by default using macro `simulate!`, so can be used passing a state, step number and how may time repeat your simulation..
 That macro has a fourth optional parameter, a boolean. When `false` is passed, `Simulation Terminal` is disabled.
@@ -206,9 +198,8 @@ pub enum LogType {
 ```
 
 ---
-<h1 class="post-title">
-How to contribute
-</h1>
+# How to contribute
+
 If you want to test, add or change something inside krABMaga engine, you can clone [main repo](https://github.com/rust-ab/rust-ab) locally, and change dependecy inside `Cargo.toml` of your examples:
 
 ```toml
@@ -218,11 +209,9 @@ rust-ab = { path="path/to/rust-ab"}
 ```
 
 ---
-<h1 class="post-title">
-Architecture
-</h1>
+# Architecture
 
-## Agents
+#### Agents
 
 The krABMaga framework defines a trait `Agent` that can be implemented on a struct to define `Agent` specific functionalities,
 mainly the `step` method which specifies how the agent behaves for each simulation step, and the `get_id` method,
@@ -234,7 +223,7 @@ to uniquely identify an agent. There are also other methods, with default implem
 The krABMaga framework allow multi-agent implementations: you can define multiple 'Agent' that
 implement the trait, and [Wolf, Sheep & Grass](https://rust-ab.github.io/wolfsheepgrass/) is the main example of this feature.
 ---
-## Simulation state
+#### Simulation state
 
 The simulation state can be considered as the single source of truth of the simulation, where data resides and is updated.
 Like `Agent`, krABMaga exposes a `State` trait to let the user mark a particular structure as a simulation state, along with
@@ -245,7 +234,7 @@ state, even though they can store their own location locally in the agent struct
 with the latest computed data, it is considered a good practice to update both an agent own location field and its copy on the
 state structure.
 ---
-## Schedule
+#### Schedule
 
 The simulation timeline is controlled by a Schedule structure that takes care of notifying all the scheduled agents, and the
 simulation state that a step has been taken. For this reason, agents should be scheduled so that they can be notified when
@@ -264,7 +253,7 @@ The schedule structure exposed by the krABMaga framework provides two methods to
 The schedule provides the `step` method which allows executing one simulation step. In this way, the programmer can
 easily design his/her simulation by looping for a certain number of step or for a given amount of CPU time.
 ---
-## Data structures
+#### Data structures
 
 <!-- The krABMaga framework exposes a few data structures based on the `DBDashMap`, a customized version of the 
 [Rust HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) that implements a double
@@ -289,9 +278,8 @@ The currently implemented structures are:
   With this fields you can reproduce any kind of graph or network, such as for our example [`Virus on a Network`](/virusnetwork).
 
 ---
-<h1 class="post-title">
-Support conference paper
-</h1>
+
+# Support conference paper
 
 If you find this code useful in your research, please consider citing:
 
@@ -310,4 +298,3 @@ If you find this code useful in your research, please consider citing:
 }
 
 ```
-:trophy: Best Paper Nominee
