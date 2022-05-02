@@ -23,6 +23,7 @@ execution and model visualization using the [Bevy game engine](https://bevyengin
 - [Dependencies](#dependencies)
 - [How to run your first example simulaton](#how-to-run-your-first-example-simulaton)
 - [How to write your first model](#how-to-write-your-first-model)
+- [Available features](#available-features)
 - [Macros for playing with Simulation Terminal](#macros-for-playing-with-simulation-terminal)
 - [How to contribute](#how-to-contribute)
 - [Architecture](#architecture)
@@ -64,7 +65,6 @@ Running in this way, you can see our `Simulation Terminal` (better known as `Sim
 * {
   box-sizing: border-box;
 }
-
 .column {
   width: 45.0%;
   padding: 5px;
@@ -74,7 +74,7 @@ Running in this way, you can see our `Simulation Terminal` (better known as `Sim
 }
 
 /* Clearfix (clear floats) */
-.row::after {
+.row::after {  
   content: "";
   clear: both;
   display: table;
@@ -83,10 +83,10 @@ Running in this way, you can see our `Simulation Terminal` (better known as `Sim
 
 <div class="row">
   <div class="column">
-    <img style="width: 500;height:500;margin-left: auto; " src="images/tui-wsg.gif"/>
+    <img style="height:500px;margin-left: auto; " src="images/tui-wsg.gif"/>
   </div>
   <div class="column">
-    <img style="width: 500;height:500;margin-left: auto;" src="images/ant.gif"/>
+    <img style="height:500px;margin-left: auto;" src="images/ant.gif"/>
   </div>
 </div>
 
@@ -157,6 +157,19 @@ fn main() {
 }
 
 ```
+---
+
+# Available features
+
+| Compilation Feature  | Description |  Experimental | Release Candidate  | Stable  |
+|:----:|:---------:|:---:|:---:|:---:|
+| **No Features** | Possibility to run model using `Simulation Terminal` and setup model-exploration experiments (Parameter Sweeping, Genetic and Random) in sequential/parallel mode. It's enough to create your base simulations. |   |   | 🦀 |
+| **visualization**  | Based on `Bevy engine`, it makes possible to visualize your model elements, to understand better the behavior of your simulation. |   | 🦀 |   |
+| **visualization-wasm** | Based on `Web Assembly`, give you the possibility to execute your visualized simulation inside your own browser. |   | 🦀 |   |
+| **distributed-mpi** | Enable distributed model exploration using MPI. At each iteration, the amount of configurations are balanced among your nodes.  |   |  🦀 |   |
+| **bayesian**  | Use ML Rust libraries to use/create function to use `Bayesian Optimization`.|   | 🦀  |   |
+| **parallel**  | Speed-up a single simulation parallelizing agent scheduling during a step.| 🦀  |   |   |
+
 
 ---
 # Macros for playing with Simulation Terminal
@@ -211,7 +224,7 @@ rust-ab = { path="path/to/rust-ab"}
 ---
 # Architecture
 
-#### Agents
+## Agents
 
 The krABMaga framework defines a trait `Agent` that can be implemented on a struct to define `Agent` specific functionalities,
 mainly the `step` method which specifies how the agent behaves for each simulation step, and the `get_id` method,
@@ -222,8 +235,9 @@ to uniquely identify an agent. There are also other methods, with default implem
 
 The krABMaga framework allow multi-agent implementations: you can define multiple 'Agent' that
 implement the trait, and [Wolf, Sheep & Grass](https://rust-ab.github.io/wolfsheepgrass/) is the main example of this feature.
+
 ---
-#### Simulation state
+## Simulation state
 
 The simulation state can be considered as the single source of truth of the simulation, where data resides and is updated.
 Like `Agent`, krABMaga exposes a `State` trait to let the user mark a particular structure as a simulation state, along with
@@ -233,17 +247,16 @@ the single source of truth forces agents to update (and most importantly read) t
 state, even though they can store their own location locally in the agent structure too. Although, to be sure one is interacting
 with the latest computed data, it is considered a good practice to update both an agent own location field and its copy on the
 state structure.
+
 ---
-#### Schedule
+## Schedule
 
 The simulation timeline is controlled by a Schedule structure that takes care of notifying all the scheduled agents, and the
 simulation state that a step has been taken. For this reason, agents should be scheduled so that they can be notified when
 a step has been taken.
 The scheduler works as a priority queue, where the agents are sorted according to their scheduled time
 and a priority value - an integer. The simulation time - a real value - starts from the scheduling time of the first agent.
-
 The schedule structure exposed by the krABMaga framework provides two methods to do so:
-
 - `schedule_once` to insert an agent in the schedule for a specific simulation step. The scheduling time and the
   priority are given as parameters. The priority is used to sort all agents within the same simulation time.
   

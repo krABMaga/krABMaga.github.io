@@ -17,7 +17,7 @@ highlight_theme = "axar"
 
 [extra]
 # zerm
-author = "Rust-AB"
+author = "krABMaga"
 theme_color = "orange"
 # Link in logo. Default returns you to $BASE_URL.
 logo_text = "krABMaga"
@@ -35,6 +35,7 @@ main_menu = [
               {url="/forestfire", name="Forest fire"},
               {url="/schelling", name="Schelling"},
               {url="/model_exp/", name="Model Exploration"},
+              {url="/charts/", name="Charts"},
               {url="/contrib/", name="Contributors"},
 ]
 
@@ -72,7 +73,7 @@ center = false
 # og_preview_img = ""
 
 # Copyright notice if desired. Defaults to
-# copyright = "copyright notice here"
+copyright = "© krABMaga MIT License"
 
 # Displayed as title of drop-down menu when size of main_menu > show_menu_items.
 menu_more = "Examples"
