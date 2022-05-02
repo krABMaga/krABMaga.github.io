@@ -104,7 +104,7 @@ function drawAsync(chartName){
         //clear the array on each draw 
         real_data = [];
         real_names = [];
-        fetch("csv/" + chartName + ".csv").then((result)=>{result.text().then((text)=>{
+        fetch("../csv/" + chartName + ".csv").then((result)=>{result.text().then((text)=>{
             var a = text.split(/\r\n|\n/);
             for (var i=2; i<a.length; i++){
                 var name = a[i].split(",")[0];
