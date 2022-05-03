@@ -35,7 +35,7 @@ main_menu = [
               {url="/forestfire", name="Forest fire"},
               {url="/schelling", name="Schelling"},
               {url="/model_exp/", name="Model Exploration"},
-              {url="/charts/", name="Charts"},
+              {url="/benchmarks/", name="Benchmarks"},
               {url="/contrib/", name="Contributors"},
 ]
 

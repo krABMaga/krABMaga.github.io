@@ -1,11 +1,11 @@
 +++
-title = "Charts"
+title = "Benchmarks"
 insert_anchor_links = "right"
 +++
 
 ---
 
-<link rel="stylesheet" href="/charts/charts.css">
+<link rel="stylesheet" href="/benchmarks/benchmarks.css">
 
 
 # ABM Benchmark
@@ -13,12 +13,22 @@ insert_anchor_links = "right"
 color code main index
  -->
 
-## Usage
+All the benchmarks have been executed on the same machine with the same configurations. 
+We started from a 100x100 field with 1000 agents and then we doubled the number of agents for each configuration, calculating the field with the same density.
+ForestFire is the only example where there isn't a clear number of agents, but there is a parameter of the simulation for the density (to clarify, it is 70%). 
+You can see all the script and files used for benchmark all the engines at the [ABM_comparison](https://github.com/rust-ab/abmcomparison).
+
+We compared our results with the most commons frameworks for ABM:
+- [MASON](https://cs.gmu.edu/~eclab/projects/mason/) is a fast discrete-event multiagent simulation library core written in Java
+- [Agents.jl](https://juliadynamics.github.io/Agents.jl/stable/) is a pure Julia framework for agent-based modeling
+- [Repast](https://repast.github.io/) is a tightly integrated, richly interactive, cross platform Java-based modeling system
+- [Netlogo](https://ccl.northwestern.edu/netlogo/) is a multi-agent programmable modeling environment
+- [Mesa](https://mesa.readthedocs.io/en/latest/#) is an agent-based modeling framework written in Python.
 
 There are two types of charts:
 
-    - Time: chart plots the average time of simulations
-    - Speedup: charts plots the speed up of krABMaga versus the others engines.
+- Time: this chart plots the average time of simulations
+- Speedup: this charts plots the speed up of krABMaga versus the others engines.
 
 You can choose one of the model using the radio buttons on the bottom of the chart and you can also choose which type of chart to display using the combobox.
 You can click on the various engine on the top legend to show or hide their corresponding values on the chart.
@@ -139,23 +149,44 @@ async function draw(chartName){
     const labels = [
         'Test',
     ];
-    const colors = [
+    var colors = [
         'rgba(255, 99, 132, 0.9)',
         'rgba(54, 162, 235, 0.9)',
         'rgba(255, 206, 86, 0.9)',
         'rgba(75, 192, 192, 0.9)',
         'rgba(153, 102, 255, 0.9)',
-        'rgba(255, 159, 64, 0.9)'
+        'rgba(255, 159, 64, 0.9)',
+        'rgba(205, 78, 13, 0.9)'
     ];
-    const elements = [
+    var elements = [
         'circle',
         'cross',
         'crossRot',
-        'dash',
+        'rectRot',
         'rect',
         'star',
         'triangle'
     ];
+    //if combocharts value is time then draw the chart with time
+    if (document.getElementById("combocharts").value == "speedup"){
+        colors = [
+            'rgba(54, 162, 235, 0.9)',
+            'rgba(255, 206, 86, 0.9)',
+            'rgba(75, 192, 192, 0.9)',
+            'rgba(153, 102, 255, 0.9)',
+            'rgba(255, 159, 64, 0.9)',
+            'rgba(205, 78, 13, 0.9)'
+        ];
+        elements = [
+            'cross',
+            'crossRot',
+            'rectRot',
+            'rect',
+            'star',
+            'triangle'
+        ];
+    }
+
     const datasets = real_data.map((x,i)=>{
         return {
             label: real_names[i],
@@ -165,7 +196,7 @@ async function draw(chartName){
             borderWidth: 1,
             fill: false,
             pointStyle: elements[i],
-            radius: 4,
+            radius: 5,
         }
     });
     const data = {
