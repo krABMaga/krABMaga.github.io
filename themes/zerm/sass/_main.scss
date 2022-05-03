@@ -25,7 +25,7 @@ body {
   font-feature-settings: "liga";
 
   @media (max-width: $phone-max-width) {
-    font-size: 1rem;
+    font-size: 0.7rem;
   }
 }
 
@@ -168,6 +168,9 @@ code {
   padding: 1px 6px;
   margin: 0 2px;
   font-size: .95rem;
+  @media (max-width: $phone-max-width) {
+    font-size: 0.65rem;
+  }
 }
 
 pre {

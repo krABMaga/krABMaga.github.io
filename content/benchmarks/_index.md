@@ -35,7 +35,7 @@ You can click on the various engine on the top legend to show or hide their corr
     
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <div>
-  <canvas id="myChart" width="400" height="150" style="background-color: white;"></canvas>
+  <canvas id="myChart" style="background-color: white;"></canvas>
 </div>
 <div class="button-group" data-toggle="buttons" id="charts">
     <div class="button">
@@ -112,7 +112,7 @@ async function draw(chartName){
 
     var details = [
         {
-            name: "Rust-AB",
+            name: "krABMaga",
             col: 'rgba(255, 99, 132, 0.9)',
             mrk: 'circle',
         },

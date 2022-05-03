@@ -36,7 +36,6 @@ Generated parameters, the user can call the macro that provides the exploration:
 
 The only restriction is defining input and output parameters inside your *State*, and  inout parameter names need to match with generated ones. For example, if you have and input parameter called **X** of type **u32** inside *State*, you have to generate a subset of **u32** values  and store in a Vec called **X**   
 
-
 ```rs
 //explore_parallel! for parallel version
 //explore_distributed_mpi! for distributed version
@@ -87,6 +86,8 @@ let result = explore_ga_sequential!(
 To use model exploration using Genetic Algorithms you have to pass several functions to Rust-AB macro.
 In this way modelist can use specific functions based on his model or needs.
 
+More details are available in the example [SIR](https://github.com/rust-ab/rust-ab-examples/tree/main/sir_ga_exploration)
+ 
 ---
 # Bayesian Optimization
 Bayesian optimization is a global optimization strategy. It is very useful to evaluate *black-boxes*, continuous functions that don't assume any functional forms, and functions with an high computational cost. Both are features of a simulation.
@@ -113,10 +114,12 @@ In this way modelist can use specific functions based on his model or needs.
 `bayesian_opt!` returns a couple composed of the point of the optimal solution found and the value of function cost in that point.
 This macro needs `bayesian` feature enabled.
 
+More details are available in the following examples:
+- [SIR](https://github.com/rust-ab/rust-ab-examples/tree/main/sir_bayesian)
+- [Forest Fire](https://github.com/rust-ab/rust-ab-examples/tree/main/forestfire_bayesian)
+
 ---
 # Random Search
 
 Random Search is a family of algorithms based on the concept of: starting from a point *X* of paramater space, sample a set of points based on current position and move to   the point *Y* if *f(Y)* is the best of sampling and better than *f(X)*, where *f* is the cost function.
 This operation is iterated until you got your goal or reached tha maximum number of iterations.
-
-

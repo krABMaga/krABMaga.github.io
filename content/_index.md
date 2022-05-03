@@ -66,7 +66,10 @@ Running in this way, you can see our `Simulation Terminal` (better known as `Sim
   box-sizing: border-box;
 }
 .column {
+  height: 100%;
+  min-height: 50%;
   width: 45.0%;
+  min-width: 300px;
   padding: 5px;
   display:inline-block;
   text-align: center;
@@ -83,10 +86,10 @@ Running in this way, you can see our `Simulation Terminal` (better known as `Sim
 
 <div class="row">
   <div class="column">
-    <img style="height:500px;margin-left: auto; " src="images/tui-wsg.gif"/>
+    <img style="margin-left: auto; " src="images/tui-wsg.gif"/>
   </div>
   <div class="column">
-    <img style="height:500px;margin-left: auto;" src="images/ant.gif"/>
+    <img style="margin-left: auto;" src="images/ant.gif"/>
   </div>
 </div>
 
@@ -160,6 +163,19 @@ fn main() {
 ---
 
 # Available features
+
+<style>
+  table{
+    word-wrap: break-word;
+    table-layout: fixed;
+    width: 100%;
+  }
+</style>
+
+This library offers some features to make your simulation more interesting and to avoid to install many dependencies that are not needed for basic simulation.
+```sh
+cargo run --release --features <name_feature>
+```
 
 | Compilation Feature  | Description |  Experimental | Release Candidate  | Stable  |
 |:----:|:---------:|:---:|:---:|:---:|
@@ -265,8 +281,10 @@ The schedule structure exposed by the krABMaga framework provides two methods to
 
 The schedule provides the `step` method which allows executing one simulation step. In this way, the programmer can
 easily design his/her simulation by looping for a certain number of step or for a given amount of CPU time.
+
 ---
-#### Data structures
+
+## Data structures
 
 <!-- The krABMaga framework exposes a few data structures based on the `DBDashMap`, a customized version of the 
 [Rust HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) that implements a double
