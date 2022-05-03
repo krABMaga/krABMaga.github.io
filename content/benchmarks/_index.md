@@ -32,46 +32,6 @@ There are two types of charts:
 
 You can choose one of the model using the radio buttons on the bottom of the chart and you can also choose which type of chart to display using the combobox.
 You can click on the various engine on the top legend to show or hide their corresponding values on the chart.
-<style>
-    .button {
-  display: table-cell;
-  float: left;
-  padding: 20px 0 0 0;
-  vertical-align: middle;
-  margin: 0 0 0 0;
-  width: 100px;
-  height: 40px;
-  position: relative;
-}
-
-.button label,
-.button input {
-  padding: 5px 0 0 0;
-  display: block;
-  position: absolute;
-  vertical-align: middle;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.button input[type="radio"] {
-  opacity: 0.011;
-  z-index: 100;
-}
-
-.button input[type="radio"]:checked + label {
-  background: #935836;
-  border-radius: 4px;
-}
-
-.button label {
-  cursor: pointer;
-  z-index: 90;
-  line-height: 1.8em;
-}
-</style>
     
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <div>
@@ -149,53 +109,49 @@ async function draw(chartName){
     const labels = [
         'Test',
     ];
-    var colors = [
-        'rgba(255, 99, 132, 0.9)',
-        'rgba(54, 162, 235, 0.9)',
-        'rgba(255, 206, 86, 0.9)',
-        'rgba(75, 192, 192, 0.9)',
-        'rgba(153, 102, 255, 0.9)',
-        'rgba(255, 159, 64, 0.9)',
-        'rgba(205, 78, 13, 0.9)'
+
+    var details = [
+        {
+            name: "Rust-AB",
+            col: 'rgba(255, 99, 132, 0.9)',
+            mrk: 'circle',
+        },
+        {
+            name: "MASON",
+            col: 'rgba(54, 162, 235, 0.9)',
+            mrk: 'cross',
+        },
+        {
+            name: "Agent.jl",
+            col: 'rgba(255, 206, 86, 0.9)',
+            mrk: 'crossRot',
+        },
+        {
+            name: "Repast",
+            col: 'rgba(75, 192, 192, 0.9)',
+            mrk: 'rectRot',
+        },
+        {
+            name: "Netlogo",
+            col: 'rgba(153, 102, 255, 0.9)',
+            mrk: 'star',
+        },
+        {
+            name: "Mesa",
+            col: 'rgba(255, 159, 64, 0.9)',
+            mrk: 'triangle',
+        },
     ];
-    var elements = [
-        'circle',
-        'cross',
-        'crossRot',
-        'rectRot',
-        'rect',
-        'star',
-        'triangle'
-    ];
-    //if combocharts value is time then draw the chart with time
-    if (document.getElementById("combocharts").value == "speedup"){
-        colors = [
-            'rgba(54, 162, 235, 0.9)',
-            'rgba(255, 206, 86, 0.9)',
-            'rgba(75, 192, 192, 0.9)',
-            'rgba(153, 102, 255, 0.9)',
-            'rgba(255, 159, 64, 0.9)',
-            'rgba(205, 78, 13, 0.9)'
-        ];
-        elements = [
-            'cross',
-            'crossRot',
-            'rectRot',
-            'rect',
-            'star',
-            'triangle'
-        ];
-    }
 
     const datasets = real_data.map((x,i)=>{
         return {
             label: real_names[i],
             data: x,
-            backgroundColor: colors[i],
-            borderColor: colors[i],
+            backgroundColor: details.filter((x)=>x.name==real_names[i]).map(x=>x.col),
+            borderColor: details.filter((x)=>x.name==real_names[i]).map(x=>x.col),
             borderWidth: 1,
             fill: false,
-            pointStyle: elements[i],
+            pointStyle: details.filter((x)=>x.name==real_names[i]).map(x=>x.mrk),
             radius: 5,
         }
     });
@@ -203,6 +159,12 @@ async function draw(chartName){
         labels: labels,
         datasets: datasets,
     };
+
+    var title_y = "seconds";
+    if (document.getElementById("combocharts").value == "speedup"){
+        title_y = "speedup";
+    }
+
     const config = {
         type: 'scatter',
         data: data,
@@ -225,7 +187,7 @@ async function draw(chartName){
                     max: 100000,
                     drawTicks: false,
                     title: {
-                        text: 'seconds',
+                        text: title_y,
                         display: true,
                     }
                 }
