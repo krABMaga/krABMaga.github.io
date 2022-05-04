@@ -119,7 +119,7 @@ with outputHandler.Group("Installing wasm-bindgen-cli"):
 if not os.path.exists("tmp_examples"):
     outputHandler.info("Examples haven't been cloned yet, cloning now...")
     with outputHandler.Group("Clone examples repository"):
-        subprocess.run(["git", "clone", "https://github.com/rust-ab/rust-ab-examples", "tmp_examples"])
+        subprocess.run(["git", "clone", "https://github.com/krABMaga/examples", "tmp_examples"])
 else:  # Project exists already, try to update it
     outputHandler.info("Updating examples folder...")
     with cd("tmp_examples"):
