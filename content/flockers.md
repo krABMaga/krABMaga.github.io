@@ -9,7 +9,7 @@ sim_name = "flockers"
 
 ---
 
-The Boids model was the first simulation to be implemented with the use of the Rust-AB framework. It is a steering behaviour
+The Boids model was the first simulation to be implemented with the use of the krABMaga framework. It is a steering behaviour
 agent-based model for autonomous agents simulating the flocking behaviour of birds. The agent behaviour is derived by a linear
 combination of three independent rules:
 - Avoidance

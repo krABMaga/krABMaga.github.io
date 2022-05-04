@@ -7,7 +7,7 @@ insert_anchor_links = "right"
 
 ABMs are too heterogeneous to be managed and explored in a traditional way, because each model has its agents, its ecosystem and variadic number of parameters. You need to write code able to generate code: *metaprogramming*, and in Rust is possible using macros.
 
-[Rust language](https://www.rust-lang.org/) has a powerful macro system, based on two categories: declarative and procedural. Procedural macros need to be written in a specific library, and cannot be directly included in [Rust-AB](https://github.com/rust-ab/rust-ab), so we chose declarative ones, which are also the most used.
+[Rust language](https://www.rust-lang.org/) has a powerful macro system, based on two categories: declarative and procedural. Procedural macros need to be written in a specific library, and cannot be directly included in [krABMaga](https://github.com/krABMaga/krABMaga), so we chose declarative ones, which are also the most used.
 
 Our framework provides several algorithms to explore parameter space:
 - [Parameter Sweeping](#parameter-sweeping);
@@ -83,10 +83,10 @@ let result = explore_ga_sequential!(
     REPETITIONS,
 );
 ```
-To use model exploration using Genetic Algorithms you have to pass several functions to Rust-AB macro.
+To use model exploration using Genetic Algorithms you have to pass several functions to krABMaga macro.
 In this way modelist can use specific functions based on his model or needs.
 
-More details are available in the example [SIR](https://github.com/rust-ab/rust-ab-examples/tree/main/sir_ga_exploration)
+More details are available in the example [SIR](https://github.com/krABMaga/examples/tree/main/sir_ga_exploration)
  
 ---
 # Bayesian Optimization
@@ -108,15 +108,15 @@ let (x, y) = bayesian_opt!(
 );
 ```
 
-To use model exploration based on Bayesian Optimization you have to pass several functions to Rust-AB macro.
+To use model exploration based on Bayesian Optimization you have to pass several functions to krABMaga macro.
 In this way modelist can use specific functions based on his model or needs.
 
 `bayesian_opt!` returns a couple composed of the point of the optimal solution found and the value of function cost in that point.
 This macro needs `bayesian` feature enabled.
 
 More details are available in the following examples:
-- [SIR](https://github.com/rust-ab/rust-ab-examples/tree/main/sir_bayesian)
-- [Forest Fire](https://github.com/rust-ab/rust-ab-examples/tree/main/forestfire_bayesian)
+- [SIR](https://github.com/krABMaga/examples/tree/main/sir_bayesian)
+- [Forest Fire](https://github.com/krABMaga/examples/tree/main/forestfire_bayesian)
 
 ---
 # Random Search

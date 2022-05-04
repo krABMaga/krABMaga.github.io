@@ -10,7 +10,7 @@ sim_name = "wolfsheepgrass"
 
 ---
 
-Also known as Wolf Sheep predation, it is the simulation implemented to introduce "dynamic scheduling" feature into the Rust-AB framework, because it was the first model with the concepts of "death" and "birth": there is an ecosystem that involves animals into their life-cycle.
+Also known as Wolf Sheep predation, it is the simulation implemented to introduce "dynamic scheduling" feature into the krABMaga framework, because it was the first model with the concepts of "death" and "birth": there is an ecosystem that involves animals into their life-cycle.
 
 The main objective is to understand and explore the stability of this ecosystem, trying to change life parameters (like `GAIN_ENEGRY`) or population size.
 

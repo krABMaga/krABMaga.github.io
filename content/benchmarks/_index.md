@@ -16,7 +16,7 @@ color code main index
 All the benchmarks have been executed on the same machine with the same configurations. 
 We started from a 100x100 field with 1000 agents and then we doubled the number of agents for each configuration, calculating the field with the same density.
 ForestFire is the only example where there isn't a clear number of agents, but there is a parameter of the simulation for the density (to clarify, it is 70%). 
-You can see all the script and files used for benchmark all the engines at the [ABM_comparison](https://github.com/rust-ab/abmcomparison).
+You can see all the script and files used for benchmark all the engines at the [ABM_comparison](https://github.com/krABMaga/abmcomparison).
 
 We compared our results with the most commons frameworks for ABM:
 - [MASON](https://cs.gmu.edu/~eclab/projects/mason/) is a fast discrete-event multiagent simulation library core written in Java

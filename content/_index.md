@@ -3,17 +3,13 @@ title = "Introduction"
 insert_anchor_links = "right"
 +++
 
-[krABMaga](https://github.com/rust-ab/rust-ab) is a discrete events simulation engine for developing ABM simulation
+[krABMaga](https://github.com/krABMaga/krABMaga) is a discrete events simulation engine for developing ABM simulation
 written in the [Rust language](https://www.rust-lang.org/).
 
-[krABMaga](https://github.com/rust-ab/rust-ab) is designed to be a ready-to-use tool for the ABM community and for this
+[krABMaga](https://github.com/krABMaga/krABMaga) is designed to be a ready-to-use tool for the ABM community and for this
 reason the architectural concepts of the well-adopted [MASON library](https://cs.gmu.edu/~eclab/projects/mason/) were
 re-engineered to exploit the Rust peculiarities and programming model, in particular by keeping the visualization and the
 simulation subsystems fully separated.
-
-⚡ The actual community effort on [krABMaga](https://github.com/rust-ab/rust-ab) is mainly devoted to supporting parallel
-execution and model visualization using the [Bevy game engine](https://bevyengine.org/).
-
 
 ---
 
@@ -44,9 +40,9 @@ The visualization framework requires certain dependencies to run the simulation 
 # How to run your first example simulaton
 First of all, install latest version of [Rust](https://www.rust-lang.org/tools/install). Follow steps to setup Rust toolchain (*cargo*, *rustc* and *rustup*).
 
-Now, you can download/clone all available krABMaga examples from our github repository called [rust-ab-examples](https://github.com/rust-ab/rust-ab-examples).
+Now, you can download/clone all available krABMaga examples from our github repository called [examples](https://github.com/krABMaga/examples).
 
-To run a simulation, go to root directory of a model, for example `/path/to/rust-ab-examples/flockers`. With command `ls`, you should be able to see a typcal krABMaga simulation struct:
+To run a simulation, go to root directory of a model, for example `/path/to/examples/flockers`. With command `ls`, you should be able to see a typcal krABMaga simulation struct:
 - `src`: main folder with code. It contains `main.rs` file and two directories for model and visulization components.
 - `Cargo.toml`: Configuration file for Rust project, with dependencies and features.
 - `assets`: an images folder. It contains all the icons that can be used for visualization.
@@ -66,15 +62,22 @@ Running in this way, you can see our `Simulation Terminal` (better known as `Sim
   box-sizing: border-box;
 }
 .column {
-  height: 100%;
-  min-height: 50%;
-  width: 45.0%;
-  min-width: 300px;
+  height: auto;
+  min-height: 100%;
+  /* width: 45.0%; */
+  min-width: 200px;
   padding: 5px;
   display:inline-block;
   text-align: center;
-  vertical-align:middle;
+  vertical-align:middle; 
 }
+
+  @media screen and (max-width: 400px) {
+    .column{
+        width: 45%;
+    }
+  }
+
 
 /* Clearfix (clear floats) */
 .row::after {  
@@ -82,11 +85,16 @@ Running in this way, you can see our `Simulation Terminal` (better known as `Sim
   clear: both;
   display: table;
 }
+
+.row{
+    text-align: center;
+
+}
 </style>
 
 <div class="row">
-  <div class="column">
-    <img style="margin-left: auto; " src="images/tui-wsg.gif"/>
+  <div class="column" >
+    <img style="margin-left: auto;" src="images/tui-wsg.gif"/>
   </div>
   <div class="column">
     <img style="margin-left: auto;" src="images/ant.gif"/>
@@ -115,17 +123,17 @@ cargo make serve --release
 ---
 # How to write your first model
 
-If you don't start from our [Template](https://github.com/rust-ab/rust-ab-examples/tree/main/template), add this to your `Cargo.toml`:
+If you don't start from our [Template](https://github.com/krABMaga/examples/tree/main/template), add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-rust-ab = { git="https://github.com/rust-ab/rust-ab.git" }
+krABMaga = { git="https://github.com/krABMaga/krABMaga.git" }
 
 [features]
-visualization = ["rust-ab/visualization"]
-visualization_wasm = ["rust-ab/visualization_wasm"]
+visualization = ["krABMaga/visualization"]
+visualization_wasm = ["krABMaga/visualization_wasm"]
 ```
 
-We **strongly** recommend to use [Template](https://github.com/rust-ab/rust-ab-examples/tree/main/template) or any other example as base of a new project, especially if you want to provide any visualization.
+We **strongly** recommend to use [Template](https://github.com/krABMaga/examples/tree/main/template) or any other example as base of a new project, especially if you want to provide any visualization.
 
 Each krABMaga model needs structs that implements our *Traits*, one for *State* and the other for *Agent*. In the *State* struct you have to put *Agent* field(s), because it represents the ecosystem of a simulation. More details for each krABMaga componenet are in the [Architecture](#architecture) section.
 
@@ -229,12 +237,12 @@ pub enum LogType {
 ---
 # How to contribute
 
-If you want to test, add or change something inside krABMaga engine, you can clone [main repo](https://github.com/rust-ab/rust-ab) locally, and change dependecy inside `Cargo.toml` of your examples:
+If you want to test, add or change something inside krABMaga engine, you can clone [main repo](https://github.com/krABMaga/krABMaga) locally, and change dependecy inside `Cargo.toml` of your examples:
 
 ```toml
 [dependencies]
-# rust-ab = { git="https://github.com/rust-ab/rust-ab.git" }
-rust-ab = { path="path/to/rust-ab"}
+# krABMaga = { git="https://github.com/krABMaga/krABMaga.git" }
+krABMaga = { path="path/to/krABMaga"}
 ```
 
 ---
@@ -250,7 +258,7 @@ to uniquely identify an agent. There are also other methods, with default implem
 - `before_step` and `after_step` to implement some operations before/after a step.
 
 The krABMaga framework allow multi-agent implementations: you can define multiple 'Agent' that
-implement the trait, and [Wolf, Sheep & Grass](https://rust-ab.github.io/wolfsheepgrass/) is the main example of this feature.
+implement the trait, and [Wolf, Sheep & Grass](https://krABMaga.github.io/wolfsheepgrass/) is the main example of this feature.
 
 ---
 ## Simulation state
