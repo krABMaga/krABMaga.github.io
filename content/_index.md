@@ -11,6 +11,9 @@ reason the architectural concepts of the well-adopted [MASON library](https://cs
 re-engineered to exploit the Rust peculiarities and programming model, in particular by keeping the visualization and the
 simulation subsystems fully separated.
 
+*Developed by [IsisLab](https://www.isislab.it)*
+<img alt="ISISLab Logo" src="https://raw.githubusercontent.com/krABMaga/krABMaga.github.io/main/static/images/isislab.png">
+
 ---
 
 ## Table of contents
@@ -94,10 +97,10 @@ Running in this way, you can see our `Simulation Terminal` (better known as `Sim
 
 <div class="row">
   <div class="column" >
-    <img style="margin-left: auto;" src="images/tui-wsg.gif"/>
+    <img style="margin-left: auto;" src="https://raw.githubusercontent.com/krABMaga/krABMaga.github.io/main/static/images/tui-wsg.gif"/>
   </div>
   <div class="column">
-    <img style="margin-left: auto;" src="images/ant.gif"/>
+    <img style="margin-left: auto;" src="https://raw.githubusercontent.com/krABMaga/krABMaga.github.io/main/static/images/ant.gif"/>
   </div>
 </div>
 
