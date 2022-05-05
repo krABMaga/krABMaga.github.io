@@ -26,7 +26,13 @@ body {
 
   @media (max-width: $phone-max-width) {
     font-size: 0.7rem;
+    
   }
+
+  @media (max-width: $tablet-max-width) {
+    font-size: 0.8rem;
+  }
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -242,10 +248,10 @@ blockquote {
 }
 
 table {
-  table-layout: fixed;
+  table-layout: auto;
   border-collapse: collapse;
   width: 100%;
-  margin: 40px 0;
+  margin: 20px 0;
 }
 
 table, th, td {

@@ -175,8 +175,9 @@ fn main() {
 <style>
   table{
     word-wrap: break-word;
-    table-layout: fixed;
+    table-layout: auto;
     width: 100%;
+    
   }
 </style>
 
@@ -185,8 +186,10 @@ This library offers some features to make your simulation more interesting and t
 cargo run --release --features <name_feature>
 ```
 
+<div  style="overflow-x:auto;">
+
 | Compilation Feature  | Description |  Experimental | Release Candidate  | Stable  |
-|:----:|:---------:|:---:|:---:|:---:|
+|:------:|:-------:|:---:|:---:|:---:|
 | **No Features** | Possibility to run model using `Simulation Terminal` and setup model-exploration experiments (Parameter Sweeping, Genetic and Random) in sequential/parallel mode. It's enough to create your base simulations. |   |   | 🦀 |
 | **visualization**  | Based on `Bevy engine`, it makes possible to visualize your model elements, to understand better the behavior of your simulation. |   | 🦀 |   |
 | **visualization-wasm** | Based on `Web Assembly`, give you the possibility to execute your visualized simulation inside your own browser. |   | 🦀 |   |
@@ -194,6 +197,7 @@ cargo run --release --features <name_feature>
 | **bayesian**  | Use ML Rust libraries to use/create function to use `Bayesian Optimization`.|   | 🦀  |   |
 | **parallel**  | Speed-up a single simulation parallelizing agent scheduling during a step.| 🦀  |   |   |
 
+</div>
 
 ---
 # Macros for playing with Simulation Terminal
