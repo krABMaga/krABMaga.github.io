@@ -57,7 +57,7 @@ To simply run your simulation, with no visualization:
 ```sh
 cargo run --release
 ```
-Running in this way, you can see our `Simulation Terminal` (better known as `Simulation Monitor`)) based on [tui-rs](https://github.com/fdehau/tui-rs), a rust library that provides components to create terminal with an interface. As a modelist, you can use krABMaga macros to create several plots, print logs and add a model description (shown using a popup)
+Running in this way, you can see our `Simulation Terminal` (better known as `Simulation Monitor`) based on [tui-rs](https://github.com/fdehau/tui-rs), a rust library that provides components to create terminal with an interface. As a modelist, you can use krABMaga macros to create several plots, print logs and add a model description (shown using a popup)
 
 
 <style>
@@ -115,7 +115,7 @@ cargo run --release --features  visualization
 cargo make run --release 
 ```
 
-In addition to the classical visualization, you can run your krABMaga simulation inside your browser using (*Web Assembly*)[https://webassembly.org]. 
+In addition to the classical visualization, you can run your krABMaga simulation inside your browser using [*Web Assembly*](https://webassembly.org). 
 This is possible with the command:
 ```sh
 # Requires 'cargo make' installed
