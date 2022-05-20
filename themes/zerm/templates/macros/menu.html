@@ -25,13 +25,13 @@
                 <ul class="menu__sub-inner">
                     <li class="menu__sub-inner-more-trigger">{{ config.extra.menu_more }} ▾</li>
                     <ul class="menu__sub-inner-more hidden">
-                        {{ menu::items(menu=config.extra.main_menu | slice(start=1, end=8)) }}
+                        {{ menu::items(menu=config.extra.main_menu | slice(start=1, end=9)) }}
                     </ul>
                 </ul>
 
                 <li></li>
 
-                {% for menu_item in config.extra.main_menu | slice(start=8) -%}
+                {% for menu_item in config.extra.main_menu | slice(start=9) -%}
                     {# 
                     Original theme has sub-children checks on main-menu, not worrying about that here.
                     #}

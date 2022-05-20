@@ -189,6 +189,24 @@ insert_anchor_links = "right"
                         </tbody>
             </table>
       </td>
+              <td style="border: none;">
+              <table>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">
+                                <a href="https://github.com/AndreaT98">
+                                  <img alt="AndreaT98" src="https://avatars.githubusercontent.com/u/56111693?v=4&s=117 width=117">
+                                </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                <a href="https://github.com/AndreaT98">AndreaT98</a>
+                                </td>
+                            </tr>
+                        </tbody>
+            </table>
+      </td>
   </tr>
 </table>
 

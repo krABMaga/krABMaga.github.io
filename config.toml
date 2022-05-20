@@ -35,6 +35,7 @@ main_menu = [
               {url="/virusnetwork", name="Virus on a Network"},
               {url="/forestfire", name="Forest fire"},
               {url="/schelling", name="Schelling"},
+              {url="/sugarscape", name="Sugarscape"},
               {url="/model_exp/", name="Model Exploration"},
               {url="/benchmarks/", name="Benchmarks"},
               {url="/contrib/", name="Contributors"},
