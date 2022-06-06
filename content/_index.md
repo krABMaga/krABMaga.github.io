@@ -255,6 +255,14 @@ krABMaga = { path="path/to/krABMaga"}
 ---
 # Architecture
 
+<!-- align center -->
+<img src="/images/krabmaga-arch.jpg" alt="krABMaga Architecture"
+ style="width:50%;  
+  display: block;
+  margin-left: auto;
+  margin-right: auto;">
+
+
 ## Agents
 
 The krABMaga framework defines a trait `Agent` that can be implemented on a struct to define `Agent` specific functionalities,
