@@ -255,13 +255,11 @@ krABMaga = { path="path/to/krABMaga"}
 ---
 # Architecture
 
-<!-- align center -->
-<img src="/images/krabmaga-arch.jpg" alt="krABMaga Architecture"
- style="width:50%;  
-  display: block;
-  margin-left: auto;
-  margin-right: auto;">
-
+<div class="row">
+  <div class="column">
+    <img src="/images/krabmaga-arch.jpg" alt="krABMaga Architecture" style="margin-left: auto;">
+  </div>
+</div>
 
 ## Agents
 
