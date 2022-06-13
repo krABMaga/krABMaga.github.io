@@ -317,14 +317,14 @@ method actually requires a mutable reference, to swap the read and the write buf
 The currently implemented structures are:
 
 - `Field2D`, a sparse matrix structure modelling agent interactions on a
-  2D real space with coordinates represented by 2D f64 tuples (`Real2D`).
+  2D real space with coordinates represented by 2D f32 tuples (`Real2D`).
   
-- `Grid2D`, a discrete field representing agents locations as 2D i64 tuples (`Int2D`). This structure keeps two copies of a DBDashMap in sync,
+- `Grid2D`, a discrete field representing agents locations as 2D i32 tuples (`Int2D`). This structure keeps two copies of a DBDashMap in sync,
   one the inverse of the other, to allow constant time access both by key (agent) and by value (position). There are two kind of Grid based on density, `SparseGrid2D` and `DenseGrid2D`.
   
 - `NumberGrid2D`, a simpler version of the `Grid2D` to use with simpler values. This is useful to represent simulation spaces
   covered by a simple entity that can be represented with a non-agent structure. This data structure can be used with any
-  structure that can be cloned, most notably simple primitive values such as f64s. As the previous grid, there are two implementations: `SparseNumberGrid2D` and `DenseNumberGrid2D`.
+  structure that can be cloned, most notably simple primitive values such as f32s. As the previous grid, there are two implementations: `SparseNumberGrid2D` and `DenseNumberGrid2D`.
   
 - `Network` and `HNetwork` to connect any kind of nodes using `Edge`/`HEdge`. With `Network` you can define both directed and undirected graphs and connect a couple of nodes with an edge with label and/or weight. `HNetwork` is a generalization of a `Network` to represent hypergraph. In this case, `HEdge` is an `HashSet` of nodes.
   With this fields you can reproduce any kind of graph or network, such as for our example [`Virus on a Network`](/virusnetwork).
