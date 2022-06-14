@@ -40,13 +40,13 @@ pub struct Sheep/Wolf {
 They "move" on different Grid, because each grid can contain a single type of entity. For the same reason, grass has its own grid.
 To manage the process of birth and death, there are several elements into `State` struct:
 - `next_id` to properly assign id to animals when reproduction happens;
-- `new_sheeps` and `new_animals` are vectors to store agents created during this step. during `after_step` phase, `State` add these new elements to scheduler;
-- `eaten_grass` and `killed_sheep` allow to remove correct elements at the end of current step and they are use to prevent two agents on a same "prey", because food can be eaten only by one agent.
+- `new_sheeps` and `new_wolves` are vectors to store agents created during this step. during `after_step` phase, `State` add these new elements to scheduler;
+- `killed_sheep` allow to remove correct elements at the end of current step and they are use to prevent two agents on a same "prey", because food can be eaten only by one agent.
 
 
 Before grids and schedule update, Animals can check prey state through `LifeState` enum:
 ```rs
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum LifeState {
     Alive,
     Dead,

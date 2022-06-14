@@ -49,4 +49,4 @@ pub struct NetNode {
 
 `EpidemicNetworkState` has two main fields:
 - `Field2D` for visualization;
-- `Network<NetNode, String>`
+- `Network<NetNode, String>` to manage nodes connection and comunication;

@@ -49,7 +49,7 @@ pub struct Flocker {
     pub dim: (f32, f32),
 }
 
-impl BoidsState {
+impl Flocker {
     pub fn new(dim: (f32, f32), initial_flockers: u32) -> Self {
         Flocker {
             step: 0,

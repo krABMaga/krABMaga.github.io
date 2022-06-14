@@ -42,15 +42,10 @@ remaining traveled by ants due to them constantly leaving pheromones, whereas in
 
 The structure of the main agent of this simulation, the `Ant`, is shown below:
 ```rs
-/// A struct representing an ant, with an id, a position, whether it's holding food or not and the
-/// current reward, used to increase the pheromone on the location of the ant if a site is reached.
 #[derive(Copy, Clone)]
 pub struct Ant {
-    /// An unique id.
     pub id: u128,
-    /// The position of the agent.
     pub loc: Int2D,
-    /// Last position of the agent, starts as None
     pub last: Option<Int2D>,
     /// False means the agent will try to find food by following food pheromones if possible, or by
     /// flooding the grid until it is found. True means the agent will try to return home by using the
@@ -65,12 +60,10 @@ pub struct Ant {
 
 The simulation state is definitely more complex than simpler models such as Boids, as shown below:
 ```rs
-/// The global simulation state. This holds the various grids used for movement, exposing setter methods
-/// so that the state itself will worry about ownership rules by mutating its own fields.
 pub struct State {
     pub ants_grid: AntsGrid,
-    pub obstacles_grid: ObstaclesGrid,
-    pub sites_grid: SitesGrid,
+    pub ants_grid: SparseGrid2D<Ant>,
+    pub obstacles_grid: SparseGrid2D<Item>,
     pub to_food_grid: ToFoodGrid,
     pub to_home_grid: ToHomeGrid,
     pub food_source_found: RwLock<bool>,
@@ -78,10 +71,11 @@ pub struct State {
     pub step: u128,
 }
 ```
+Obstacles are represented by the `Item`, an enum that can assume one of these three values: `Food`, `Home` and `Obstacle`.
 
 This increase in complexity is caused by different requirements to represent the location of each entity. For example,
 ants require the use of a sparse grid, since most of the time more than half of the grid's cells do not have an ant in them.
-Pheromones, on the other part, can be represented by a simple primitive value, a `f64`, and a dense grid is better to represent them,
+Pheromones, on the other part, can be represented by a simple primitive value, a `f32`, and a dense grid is better to represent them,
 especially considering the initial phase when the ants flood the grid and leave traces of pheromones everywhere.
 There is also another reason regarding the use of a different type of grid for pheromones: visualization performance. Instead of
 representing pheromones as single entities, thus causing an enormous amount of entities existing at all times at runtime, a different

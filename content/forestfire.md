@@ -13,7 +13,7 @@ The forest fire model is defined as a cellular automaton, where each cell can re
 The trees have three states:
 - 🌲 alive, which is represented visually with a tree emoji;
 - 🔥 burning, which is represented visually with a fire emoji;
-- dead, which is represented visually with a dust emoji;
+- 💀 dead, which is represented visually with a dust emoji;
 
 The simulation relies on two parameters, the space dimension and the density.
 The latter, in particular, is used to choose the number of trees to randomly generate at the start of the simulation.
