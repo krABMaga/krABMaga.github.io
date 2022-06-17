@@ -1,7 +1,7 @@
 +++
 title = "Wolf Sheep Grass (Predator Prey)"
 [extra]
-last_updated = "2022-06-06"
+last_updated = "2022-06-17"
 sim_name = "wolfsheepgrass"
 +++
 
