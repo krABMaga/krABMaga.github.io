@@ -56,7 +56,7 @@ There are two *Explore Mode* options:
 
 ---
 # Genetic Algorithm
-A genetic algorithm is a search heuristic that is inspired by Charles Darwin’s theory of natural evolution. Starting from an initial population, at each generation this algorithm selects the fittest individuals to create offspring of next generation. An individual is a string called **chromosome** that, in this case, represents a combination of parameters. A single parameter is called **gene**.
+A genetic algorithm is an heuristic search that is inspired by Charles Darwin’s theory of natural evolution. Starting from an initial population, at each generation this algorithm selects the fittest individuals to create offspring of next generation. An individual is a string called **chromosome** that, in this case, represents a combination of parameters. A single parameter is called **gene**.
 
 To use this algorithm we need to define 5 functions: 
 - Init population;
