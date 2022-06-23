@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      margin: 0;
+      overflow:hidden;
+    }
+  </style>
+</head>
+<script type="module">
+  function adjustCanvasSize() {
+    const canvas = document.querySelector("canvas");
+    if(canvas) {
+      canvas.style.height = '100%';
+    }
+  }
+
+  // Get the name of the simulation to load as a GET parameter
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const simulation = urlParams.get('sim');
+  const wasm = './wasm/' + simulation + '.js';
+
+  // Dynamically import the module
+  const init = await import(wasm);
+
+  try {
+    await init.default();
+  } finally {
+    adjustCanvasSize()
+  }
+
+  window.addEventListener('resize', adjustCanvasSize);
+
+</script>
+
+<body>
+</body>
+
+</html>
