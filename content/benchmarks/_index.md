@@ -13,8 +13,19 @@ insert_anchor_links = "right"
 color code main index
  -->
 
-All the benchmarks have been executed on the same machine with the same configurations. 
-We started from a 100x100 field with 1000 agents and then we doubled the number of agents for each configuration, calculating the field with the same density.
+Frameworks' performance has been tested with different models configurations, starting with a **field 100x100** , **1000 agents**, and **200 steps**, keeping an agent **density of 10%**.
+The subsequent configurations are obtained by doubling the number of agents and changing the field dimensions to preserve the initial agent:
+
+- Agents: 1000 - Field: 100x100
+- Agents: 2000 - Field: 141x141
+- Agents: 4000 - Field: 200x200
+- Agents: 8000 - Field: 282x282
+- Agents: 16000 - Field: 400x400
+- Agents: 32000 - Field: 565x565
+- Agents: 128000 - Field: 1131x1131
+
+Each experiment has been executed **10 times**, repeating the run in case of failure, to collect the average execution time for each model.
+
 ForestFire is the only example where there isn't a clear number of agents, but there is a parameter of the simulation for the density (to clarify, it is 70%). 
 You can see all the script and files used for benchmark all the engines at the [ABM_comparison](https://github.com/krABMaga/abmcomparison).
 
