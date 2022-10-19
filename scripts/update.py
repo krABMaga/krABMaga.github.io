@@ -111,7 +111,7 @@ with outputHandler.Group("Installing wasm32-unknown-unknown target"):
         outputHandler.error("Wasm32-unknown-unknown target failed to install!")
 
 with outputHandler.Group("Installing wasm-bindgen-cli"):
-    wasmBindgenInstall = subprocess.run(["cargo", "install", "wasm-bindgen-cli", "--version", "0.2.79"])
+    wasmBindgenInstall = subprocess.run(["cargo", "install", "wasm-bindgen-cli"])
     if wasmBindgenInstall.returncode != 0:
         outputHandler.error("Cargo-make failed to install!")
 
