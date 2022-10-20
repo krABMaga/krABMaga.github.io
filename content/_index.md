@@ -257,7 +257,7 @@ krABMaga = { path="path/to/krABMaga"}
 
 <div class="row">
   <div class="column">
-    <img src="/images/krabmaga-arch.jpg" alt="krABMaga Architecture" style="margin-left: auto;">
+    <img src="/images/krabmaga-arch.jpg" alt="krABMaga Architecture" style="margin: auto; width: 80%">
   </div>
 </div>
 
