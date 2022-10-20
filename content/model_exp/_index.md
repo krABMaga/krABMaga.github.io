@@ -34,12 +34,23 @@ For each parameter, the user has to call a macro to generate the set of values t
 
 Generated parameters, the user can call the macro that provides the exploration: the macro creates an ad hoc dataframe to store all configurations and output of each run, define all configurations (all possible combinations) and finally run the simulation, thanks to another macro able to schedule steps of simulations.
 
-The only restriction is defining input and output parameters inside your *State*, and  inout parameter names need to match with generated ones. For example, if you have and input parameter called **X** of type **u32** inside *State*, you have to generate a subset of **u32** values  and store in a Vec called **X**   
+The only restriction is defining input and output parameters inside your *State*, and  inout parameter names need to match with generated ones. For example, if you have and input parameter called **X** of type **u32** inside *State*, you have to generate a subset of **u32** values  and store in a Vec called **X**. By default, the exploration is sequential.
 
 ```rs
-//explore_parallel! for parallel version
-//explore_distributed_mpi! for distributed version
-let result = explore_sequential!(
+// Sequential scenario
+// Computing mode for sequential isn't mandatory. See below.
+let result = explore!(
+  STEP, REPS, State,  // Simulation Step, Repetitions for each configuration, name of your State struct
+  input{
+    par1: u32   // Parameters generated
+    par2: f64  
+  },
+  output [ output: f64], 
+  ExploreMode::Matched
+);
+
+// Parallel scenario
+let result = explore!(
   STEP, REPS, State,  // Simulation Step, Repetitions for each configuration, name of your State struct
   input{
     par1: u32   // Parameters generated
@@ -47,7 +58,9 @@ let result = explore_sequential!(
   },
   output [ output: f64], 
   ExploreMode::Matched,
+  ComputingMode::Parallel // Distributed or Cloud as other options
 );
+
 ```
 
 There are two *Explore Mode* options:
@@ -65,11 +78,12 @@ To use this algorithm we need to define 5 functions:
 - Crossover to combine genes of a couple of individuals;
 - Mutation to apply some little changes to offspring genes with a low random probability;
 
+By default, the search is sequential.
 
 ```rs
-//explore_ga_parallel! for parallel version
-//explore_ga_distributed_mpi! for distributed version
-let result = explore_ga_sequential!(
+// Sequential scenario
+// Computing mode for sequential isn't mandatory. See below.
+let result = evolutionary_search!(
     init_population,
     fitness,
     selection,   //with macro u can pass function you define
@@ -80,7 +94,23 @@ let result = explore_ga_sequential!(
     DESIRED_FITNESS,
     MAX_GENERATION,
     STEP,
-    REPETITIONS,
+    REPETITIONS, // optional
+);
+
+// Parallel scenario
+let result = evolutionary_search!(
+    init_population,
+    fitness,
+    selection,   //with macro u can pass function you define
+    mutation,
+    crossover,
+    cmp,  // function to compare two fitness
+    State,
+    DESIRED_FITNESS,
+    MAX_GENERATION,
+    STEP,
+    REPETITIONS, // optional
+    ComputingMode::Parallel // Distributed or Cloud as other options
 );
 ```
 To use model exploration using Genetic Algorithms you have to pass several functions to krABMaga macro.
