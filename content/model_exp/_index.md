@@ -11,12 +11,12 @@ ABMs are too heterogeneous to be managed and explored in a traditional way, beca
 
 Our framework provides several algorithms to explore parameter space:
 - [Parameter Sweeping](#parameter-sweeping);
-- [Genetic Algorithm](#genetic-algorithm);
+- [Evolutionary Search](#evolutionary-search);
 - [Bayesian Optimization](#bayesian-optimization);
 - [Random Search](#random-search);
 
 
-Because the number of simulations to run  can easily explode based on the parameters, the amount of values generated, the algorithm and its settings, we provide parallel, distributed (using MPI) and "on Cloud" (using AWS API) explorations to run multiple simulations simultaneously. At the moment, they are available for [Parameter Sweeping](#parameter-sweeping) and [Genetic Algorithm](#genetic-algorithm). 
+Because the number of simulations to run  can easily explode based on the parameters, the amount of values generated, the algorithm and its settings, we provide parallel, distributed (using MPI) and "on Cloud" (using AWS API) explorations to run multiple simulations simultaneously. At the moment, they are available for [Parameter Sweeping](#parameter-sweeping) and [Genetic Algorithm](#evolutionary-search). 
 
 Model Exploration with MPI is based on [`rsmpi`](https://github.com/rsmpi/rsmpi), an MPI binding to Rust. Of course to use it you need a MPI distribution installed on your machine(s).
 `rsmpi` officially supports:
@@ -68,7 +68,8 @@ There are two *Explore Mode* options:
 - *Matched*, if you have to test only specific combinations;
 
 ---
-# Genetic Algorithm
+# Evolutionary Search
+krABMaga provides a macro to optimize paramaters of your model using an evolutioary searching strategy.
 A genetic algorithm is an heuristic search that is inspired by Charles Darwin’s theory of natural evolution. Starting from an initial population, at each generation this algorithm selects the fittest individuals to create offspring of next generation. An individual is a string called **chromosome** that, in this case, represents a combination of parameters. A single parameter is called **gene**.
 
 To use this algorithm we need to define 5 functions: 
