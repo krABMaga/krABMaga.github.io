@@ -1,7 +1,7 @@
 +++
 title = "Schelling"
 [extra]
-last_updated = "2023-01-25"
+last_updated = "2023-03-22"
 sim_name = "schelling"
 +++
 
