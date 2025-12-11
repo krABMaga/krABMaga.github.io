@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>Model Exploration - krABMaga</title>
+    
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content=""/>
+
+    <meta property="og:title" content="
+     -&nbsp;Model Exploration" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;model_exp&#x2F;"/>
+    <meta property="og:description" content=""/>
+    <link rel="preload" href="/assets/fonts/FiraCode-Regular.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="/assets/fonts/FiraCode-Bold.woff" as="font" type="font/woff" crossorigin>
+
+    <link rel="stylesheet" href="https://krABMaga.github.io/style.css">
+    <link rel="stylesheet" href=" https://krABMaga.github.io/color/orange.css">
+    <link rel="stylesheet" href="https://krABMaga.github.io/custom.css">
+    
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        
+    </head>
+    <body>
+        <div class="container full">
+
+<style>
+/* background: #211f1a
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.header {
+  /* overflow: hidden; */
+  padding: 10px 10px 0px 0px;
+  background: #211f1a ;
+  z-index:99;
+}
+
+.content {
+  z-index:0;
+  position:relative;
+  padding: 10px 0px 0px 0px;
+
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 90px 0px 0px;
+
+ 
+}
+
+@media(max-width: 683px) 
+{
+  .sticky {
+    padding: 10px 30px 0px 0px;
+  }
+}
+
+</style>
+
+
+ <header class="header" id="myHeader" style="background: #211f1a ;" >
+    <div class="header__inner">
+        <div class="header__logo">
+            <a href="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;">
+    <div class="logo">
+        <img style="width: 50;height:50px;margin-left: auto;margin-right: auto;" src="https://krABMaga.github.io/images/krabmaga.png"/>
+        <!-- krABMaga -->
+
+    </div>
+</a>
+        </div>
+        <div class="menu-trigger">menu</div>
+      </div>
+      
+    <nav class="menu">
+        <ul class="menu__inner menu__inner--desktop">
+            
+            
+                 
+                        <li>
+                            <a href="https://krABMaga.github.io">Home</a>
+                        </li>
+                <li>
+                            <a href="https://docs.rs/krabmaga">Docs</a>
+                        </li>
+                
+
+                <ul class="menu__sub-inner">
+                    <li class="menu__sub-inner-more-trigger">Examples ▾</li>
+                    <ul class="menu__sub-inner-more hidden">
+                        
+        <li>
+            <a href="https://krABMaga.github.io/template">Template</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/antsforaging">Ants Foraging</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/flockers">Flockers</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/forestfire">Forest fire</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/schelling">Schelling</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/sugarscape">Sugarscape</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/virusnetwork">Virus on a Network</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/wolfsheepgrass">Wolf Sheep Grass</a>
+        </li>
+                    </ul>
+                </ul>
+
+                <li></li>
+
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/model_exp">Model Exploration</a>
+                    </li>
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/benchmarks">Benchmarks</a>
+                    </li>
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/contrib">Contributors</a>
+                    </li>
+                <!---->
+
+                <!---->
+                
+            </ul>
+
+        <ul class="menu__inner menu__inner--mobile">
+            
+        <li>
+            <a href="https://krABMaga.github.io">Home</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/template">Template</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/antsforaging">Ants Foraging</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/flockers">Flockers</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/forestfire">Forest fire</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/schelling">Schelling</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/sugarscape">Sugarscape</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/virusnetwork">Virus on a Network</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/wolfsheepgrass">Wolf Sheep Grass</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/model_exp">Model Exploration</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/benchmarks">Benchmarks</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/contrib">Contributors</a>
+        </li>
+        </ul>
+    </nav>
+
+    </header>
+
+<script>
+  window.onscroll = function() {myFunction()};
+  
+  var header = document.getElementById("myHeader");
+  var sticky = header.offsetTop;
+  
+  function myFunction() {
+    if (window.pageYOffset > sticky) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+  }
+</script>
+
+
+<div class="content"><div class="post">
+    <h1 class="post-title">
+        <a href="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;model_exp&#x2F;">Model Exploration</a>
+    </h1>
+    
+    
+    <div class="post-meta">
+        <span class="post-date"></span>
+
+        <span class="post-author"></span>
+    </div>
+<div class="post-content">
+        <hr />
+<p>ABMs are too heterogeneous to be managed and explored in a traditional way, because each model has its agents, its ecosystem and variadic number of parameters. You need to write code able to generate code: <em>metaprogramming</em>, and in Rust is possible using macros.</p>
+<p><a href="https://www.rust-lang.org/">Rust language</a> has a powerful macro system, based on two categories: declarative and procedural. Procedural macros need to be written in a specific library, and cannot be directly included in <a href="https://github.com/krABMaga/krABMaga">krABMaga</a>, so we chose declarative ones, which are also the most used.</p>
+<p>Our framework provides several algorithms to explore parameter space:</p>
+<ul>
+<li><a href="https://krABMaga.github.io/model_exp/#parameter-sweeping">Parameter Sweeping</a>;</li>
+<li><a href="https://krABMaga.github.io/model_exp/#evolutionary-search">Evolutionary Search</a>;</li>
+<li><a href="https://krABMaga.github.io/model_exp/#bayesian-optimization">Bayesian Optimization</a>;</li>
+<li><a href="https://krABMaga.github.io/model_exp/#random-search">Random Search</a>;</li>
+</ul>
+<p>Because the number of simulations to run  can easily explode based on the parameters, the amount of values generated, the algorithm and its settings, we provide parallel, distributed (using MPI) and &quot;on Cloud&quot; (using AWS API) explorations to run multiple simulations simultaneously. At the moment, they are available for <a href="https://krABMaga.github.io/model_exp/#parameter-sweeping">Parameter Sweeping</a> and <a href="https://krABMaga.github.io/model_exp/#evolutionary-search">Genetic Algorithm</a>. </p>
+<p>Model Exploration with MPI is based on <a href="https://github.com/rsmpi/rsmpi"><code>rsmpi</code></a>, an MPI binding to Rust. Of course to use it you need a MPI distribution installed on your machine(s).
+<code>rsmpi</code> officially supports:</p>
+<ul>
+<li>OpenMPI 4.0.3 on Ubuntu-20.04, 4.1.2 on macOS.</li>
+<li>MPICH 3.3.2 on Ubuntu 20.04.</li>
+<li>MS-MPI (Windows) 10.1.1 on Windows 2022.</li>
+</ul>
+<p>To use exploration with MPI you have to enable <code>distributed-mpi</code> feature.</p>
+<hr />
+<h1 id="parameter-sweeping">Parameter Sweeping<a class="zola-anchor" href="#parameter-sweeping" aria-label="Anchor link for: parameter-sweeping">§</a>
+</h1>
+<p>Runs a model many times, varying the model’s settings based on a discrete range of values and recording the results. </p>
+<p>For each parameter, the user has to call a macro to generate the set of values to test on different simulation configurations: with macro, user can pass types as a parameter, so the same code can be adapted for any parameter type.</p>
+<p>Generated parameters, the user can call the macro that provides the exploration: the macro creates an ad hoc dataframe to store all configurations and output of each run, define all configurations (all possible combinations) and finally run the simulation, thanks to another macro able to schedule steps of simulations.</p>
+<p>The only restriction is defining input and output parameters inside your <em>State</em>, and  inout parameter names need to match with generated ones. For example, if you have and input parameter called <strong>X</strong> of type <strong>u32</strong> inside <em>State</em>, you have to generate a subset of <strong>u32</strong> values  and store in a Vec called <strong>X</strong>. By default, the exploration is sequential.</p>
+<pre data-lang="rs" class="language-rs "><code class="language-rs" data-lang="rs">&#x2F;&#x2F; Sequential scenario
+&#x2F;&#x2F; Computing mode for sequential isn&#x27;t mandatory. See below.
+let result = explore!(
+  STEP, REPS, State,  &#x2F;&#x2F; Simulation Step, Repetitions for each configuration, name of your State struct
+  input{
+    par1: u32   &#x2F;&#x2F; Parameters generated
+    par2: f64  
+  },
+  output [ output: f64], 
+  ExploreMode::Matched
+);
+
+&#x2F;&#x2F; Parallel scenario
+let result = explore!(
+  STEP, REPS, State,  &#x2F;&#x2F; Simulation Step, Repetitions for each configuration, name of your State struct
+  input{
+    par1: u32   &#x2F;&#x2F; Parameters generated
+    par2: f64  
+  },
+  output [ output: f64], 
+  ExploreMode::Matched,
+  ComputingMode::Parallel &#x2F;&#x2F; Distributed or Cloud as other options
+);
+
+</code></pre>
+<p>There are two <em>Explore Mode</em> options:</p>
+<ul>
+<li><em>Exaustive</em>, the standard mode;</li>
+<li><em>Matched</em>, if you have to test only specific combinations;</li>
+</ul>
+<hr />
+<h1 id="evolutionary-search">Evolutionary Search<a class="zola-anchor" href="#evolutionary-search" aria-label="Anchor link for: evolutionary-search">§</a>
+</h1>
+<p>krABMaga provides a macro to optimize paramaters of your model using an evolutioary searching strategy.
+A genetic algorithm is an heuristic search that is inspired by Charles Darwin’s theory of natural evolution. Starting from an initial population, at each generation this algorithm selects the fittest individuals to create offspring of next generation. An individual is a string called <strong>chromosome</strong> that, in this case, represents a combination of parameters. A single parameter is called <strong>gene</strong>.</p>
+<p>To use this algorithm we need to define 5 functions: </p>
+<ul>
+<li>Init population;</li>
+<li>Fitness function to evaluate an individual, so that you can compare if one is better than one other;</li>
+<li>Selection to select which part of population can survive and/or can be used to create the offspring;</li>
+<li>Crossover to combine genes of a couple of individuals;</li>
+<li>Mutation to apply some little changes to offspring genes with a low random probability;</li>
+</ul>
+<p>By default, the search is sequential.</p>
+<pre data-lang="rs" class="language-rs "><code class="language-rs" data-lang="rs">&#x2F;&#x2F; Sequential scenario
+&#x2F;&#x2F; Computing mode for sequential isn&#x27;t mandatory. See below.
+let result = evolutionary_search!(
+    init_population,
+    fitness,
+    selection,   &#x2F;&#x2F;with macro u can pass function you define
+    mutation,
+    crossover,
+    cmp,  &#x2F;&#x2F; function to compare two fitness
+    State,
+    DESIRED_FITNESS,
+    MAX_GENERATION,
+    STEP,
+    REPETITIONS, &#x2F;&#x2F; optional
+);
+
+&#x2F;&#x2F; Parallel scenario
+let result = evolutionary_search!(
+    init_population,
+    fitness,
+    selection,   &#x2F;&#x2F;with macro u can pass function you define
+    mutation,
+    crossover,
+    cmp,  &#x2F;&#x2F; function to compare two fitness
+    State,
+    DESIRED_FITNESS,
+    MAX_GENERATION,
+    STEP,
+    REPETITIONS, &#x2F;&#x2F; optional
+    ComputingMode::Parallel &#x2F;&#x2F; Distributed or Cloud as other options
+);
+</code></pre>
+<p>To use model exploration using Genetic Algorithms you have to pass several functions to krABMaga macro.
+In this way modelist can use specific functions based on his model or needs.</p>
+<p>More details are available in the example <a href="https://github.com/krABMaga/examples/tree/main/sir_ga_exploration">SIR</a></p>
+<hr />
+<h1 id="bayesian-optimization">Bayesian Optimization<a class="zola-anchor" href="#bayesian-optimization" aria-label="Anchor link for: bayesian-optimization">§</a>
+</h1>
+<p>Bayesian optimization is a global optimization strategy. It is very useful to evaluate <em>black-boxes</em>, continuous functions that don't assume any functional forms, and functions with an high computational cost. Both are features of a simulation.</p>
+<p>This strategy is based on two functions:</p>
+<ul>
+<li>Surrogate Function: Bayesian approximation of the objective function that can be sampled efficiently;</li>
+<li>Acquisition Function: Technique by which the posterior probability is used to select the next sample from the search space;</li>
+</ul>
+<pre data-lang="rs" class="language-rs "><code class="language-rs" data-lang="rs">let (x, y) = bayesian_opt!(
+    init_population, &#x2F;&#x2F; initial points to setup algorithm
+    costly_function, &#x2F;&#x2F; setup and exectution of a simulation, returning a cost
+    acquisition_function,
+    get_points, &#x2F;&#x2F; generate point from parameter space as base of the iteration
+    check_domain, &#x2F;&#x2F; check the point returned from an iteration of the algorithm
+    ITERATIONS, 
+);
+</code></pre>
+<p>To use model exploration based on Bayesian Optimization you have to pass several functions to krABMaga macro.
+In this way modelist can use specific functions based on his model or needs.</p>
+<p><code>bayesian_opt!</code> returns a couple composed of the point of the optimal solution found and the value of function cost in that point.
+This macro needs <code>bayesian</code> feature enabled.</p>
+<p>More details are available in the following examples:</p>
+<ul>
+<li><a href="https://github.com/krABMaga/examples/tree/main/sir_bayesian">SIR</a></li>
+<li><a href="https://github.com/krABMaga/examples/tree/main/forestfire_bayesian">Forest Fire</a></li>
+</ul>
+<hr />
+<h1 id="random-search">Random Search<a class="zola-anchor" href="#random-search" aria-label="Anchor link for: random-search">§</a>
+</h1>
+<p>Random Search is a family of algorithms based on the concept of: starting from a point <em>X</em> of paramater space, sample a set of points based on current position and move to   the point <em>Y</em> if <em>f(Y)</em> is the best of sampling and better than <em>f(X)</em>, where <em>f</em> is the cost function.
+This operation is iterated until you got your goal or reached tha maximum number of iterations.</p>
+
+    </div>
+    
+    
+</div></div>
+    <div class="pagination">
+        <div class="pagination__buttons">
+            </div>
+    </div>
+<footer class="footer">
+                    <div class="footer__inner"><div class="copyright copyright--user">© krABMaga MIT License</div>
+    <script type="text/javascript" src="https://krABMaga.github.io/assets/js/main.js"></script>
+</div>
+                    
+
+                </footer></div>
+    </body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><title>Ants Foraging</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content=""/>
+
+    <meta property="og:title" content="
+     -&nbsp;Ants Foraging" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;antsforaging&#x2F;"/>
+    <meta property="og:description" content=""/>
+    <link rel="preload" href="/assets/fonts/FiraCode-Regular.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="/assets/fonts/FiraCode-Bold.woff" as="font" type="font/woff" crossorigin>
+
+    <link rel="stylesheet" href="https://krABMaga.github.io/style.css">
+    <link rel="stylesheet" href=" https://krABMaga.github.io/color/orange.css">
+    <link rel="stylesheet" href="https://krABMaga.github.io/custom.css">
+    
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"
+        integrity="sha256-uVEHWRIr846/vAdLJeybWxjPNStREzOlqLMXjW/Saeo=" crossorigin="anonymous"></script><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        
+    </head>
+    <body>
+        <div class="container full">
+
+<style>
+/* background: #211f1a
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.header {
+  /* overflow: hidden; */
+  padding: 10px 10px 0px 0px;
+  background: #211f1a ;
+  z-index:99;
+}
+
+.content {
+  z-index:0;
+  position:relative;
+  padding: 10px 0px 0px 0px;
+
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 90px 0px 0px;
+
+ 
+}
+
+@media(max-width: 683px) 
+{
+  .sticky {
+    padding: 10px 30px 0px 0px;
+  }
+}
+
+</style>
+
+
+ <header class="header" id="myHeader" style="background: #211f1a ;" >
+    <div class="header__inner">
+        <div class="header__logo">
+            <a href="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;">
+    <div class="logo">
+        <img style="width: 50;height:50px;margin-left: auto;margin-right: auto;" src="https://krABMaga.github.io/images/krabmaga.png"/>
+        <!-- krABMaga -->
+
+    </div>
+</a>
+        </div>
+        <div class="menu-trigger">menu</div>
+      </div>
+      
+    <nav class="menu">
+        <ul class="menu__inner menu__inner--desktop">
+            
+            
+                 
+                        <li>
+                            <a href="https://krABMaga.github.io">Home</a>
+                        </li>
+                <li>
+                            <a href="https://docs.rs/krabmaga">Docs</a>
+                        </li>
+                
+
+                <ul class="menu__sub-inner">
+                    <li class="menu__sub-inner-more-trigger">Examples ▾</li>
+                    <ul class="menu__sub-inner-more hidden">
+                        
+        <li>
+            <a href="https://krABMaga.github.io/template">Template</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/antsforaging">Ants Foraging</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/flockers">Flockers</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/forestfire">Forest fire</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/schelling">Schelling</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/sugarscape">Sugarscape</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/virusnetwork">Virus on a Network</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/wolfsheepgrass">Wolf Sheep Grass</a>
+        </li>
+                    </ul>
+                </ul>
+
+                <li></li>
+
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/model_exp">Model Exploration</a>
+                    </li>
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/benchmarks">Benchmarks</a>
+                    </li>
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/contrib">Contributors</a>
+                    </li>
+                <!---->
+
+                <!---->
+                
+            </ul>
+
+        <ul class="menu__inner menu__inner--mobile">
+            
+        <li>
+            <a href="https://krABMaga.github.io">Home</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/template">Template</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/antsforaging">Ants Foraging</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/flockers">Flockers</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/forestfire">Forest fire</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/schelling">Schelling</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/sugarscape">Sugarscape</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/virusnetwork">Virus on a Network</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/wolfsheepgrass">Wolf Sheep Grass</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/model_exp">Model Exploration</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/benchmarks">Benchmarks</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/contrib">Contributors</a>
+        </li>
+        </ul>
+    </nav>
+
+    </header>
+
+<script>
+  window.onscroll = function() {myFunction()};
+  
+  var header = document.getElementById("myHeader");
+  var sticky = header.offsetTop;
+  
+  function myFunction() {
+    if (window.pageYOffset > sticky) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+  }
+</script>
+
+
+<div class="content"><div class="post">
+
+    <h1 class="post-title">
+        <a href="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;antsforaging&#x2F;">Ants Foraging - Last updated: 2025-12-11</a>
+    </h1>
+
+    
+    <div class="post-meta">
+        <span class="post-date"></span>
+
+        <span class="post-author"></span>
+
+        
+
+    
+    </div>
+
+
+    <div class="post-content">
+
+        <div class="page-container">
+            <div class="main-content">
+                <div class="text-content">
+                    <h1 id="ants-foraging">Ants Foraging<a class="zola-anchor" href="#ants-foraging" aria-label="Anchor link for: ants-foraging">§</a>
+</h1>
+<hr />
+<p>The ants foraging simulation is based on a model which represents the behaviour of a colony of ants looking for
+food around their nest through the use of pheromones to find the shortest path connecting the nest and the food source.
+The ants represent the agents of this simulation, with the logic implemented on them consisting in two actions:</p>
+<ul>
+<li>Look around the nest in the simulation space for food sources, either randomly or by using the information left by
+other ants in the form of pheromones, represented by simple f64 values.</li>
+<li>Once the food source is found, return to the nest by using the previously left pheromones to find the shortest path, while
+also leaving a different type of pheromone to mark the presence of a food source.</li>
+</ul>
+<p>When a site is reached, the ants will leave the strongest pheromone possible and weaker amounts will be left in
+the neighbour cells. While moving, if no pheromone is found, a random step is taken. If a pheromone of the matching type
+is found, based on whether the ant is looking for the food source or for the nest, a step is taken towards the cell with
+the strongest pheromone.</p>
+<p>The space consists of a discrete grid where agents and static objects live in. There are three types of entities:</p>
+<ul>
+<li>Ants, representing the agents of this simulation.</li>
+<li>Obstacles, representing dense objects occupying a cell, preventing ants from stepping on such cells.</li>
+<li>Sites, representing points of interest, that is the food source and the nest.</li>
+</ul>
+<p>The major result of the simulation that can be seen is the creation of a short path, in terms of steps taken by the ants to
+reach each site, which is improved over time as the simulation steps forward. It isn't uncommon seeing an initial, non-optimal path
+created by the ants due to the presence of obstacles, which is then later improved as the ants try out different directions,
+causing stronger pheromones to be left and inducing the other ants to prioritize the new path.</p>
+<p>As time goes on, pheromones evaporate with a constant ratio. This is especially important due to the most active paths
+remaining traveled by ants due to them constantly leaving pheromones, whereas inactive paths disappear over time.</p>
+<hr />
+<h1 id="implementation">Implementation<a class="zola-anchor" href="#implementation" aria-label="Anchor link for: implementation">§</a>
+</h1>
+<p>The structure of the main agent of this simulation, the <code>Ant</code>, is shown below:</p>
+<pre data-lang="rs" class="language-rs "><code class="language-rs" data-lang="rs">#[derive(Copy, Clone)]
+pub struct Ant {
+    pub id: u128,
+    pub loc: Int2D,
+    pub last: Option&lt;Int2D&gt;,
+    &#x2F;&#x2F;&#x2F; False means the agent will try to find food by following food pheromones if possible, or by
+    &#x2F;&#x2F;&#x2F; flooding the grid until it is found. True means the agent will try to return home by using the
+    &#x2F;&#x2F;&#x2F; previously deposited pheromones.
+    pub has_food: bool,
+    &#x2F;&#x2F;&#x2F; Value used to increase the pheromones in the nest and in the food source.
+    &#x2F;&#x2F;&#x2F; This will let the agents spread pheromones in the surrounding areas from point of interests
+    &#x2F;&#x2F;&#x2F; so that other agents will know which path to take to do their job.
+    pub reward: f64,
+}
+</code></pre>
+<p>The simulation state is definitely more complex than simpler models such as Boids, as shown below:</p>
+<pre data-lang="rs" class="language-rs "><code class="language-rs" data-lang="rs">pub struct State {
+    pub ants_grid: AntsGrid,
+    pub ants_grid: SparseGrid2D&lt;Ant&gt;,
+    pub obstacles_grid: SparseGrid2D&lt;Item&gt;,
+    pub to_food_grid: ToFoodGrid,
+    pub to_home_grid: ToHomeGrid,
+    pub food_source_found: RwLock&lt;bool&gt;,
+    pub food_returned_home: RwLock&lt;bool&gt;,
+    pub step: u128,
+}
+</code></pre>
+<p>Obstacles are represented by the <code>Item</code>, an enum that can assume one of these three values: <code>Food</code>, <code>Home</code> and <code>Obstacle</code>.</p>
+<p>This increase in complexity is caused by different requirements to represent the location of each entity. For example,
+ants require the use of a sparse grid, since most of the time more than half of the grid's cells do not have an ant in them.
+Pheromones, on the other part, can be represented by a simple primitive value, a <code>f32</code>, and a dense grid is better to represent them,
+especially considering the initial phase when the ants flood the grid and leave traces of pheromones everywhere.
+There is also another reason regarding the use of a different type of grid for pheromones: visualization performance. Instead of
+representing pheromones as single entities, thus causing an enormous amount of entities existing at all times at runtime, a different
+approach was taken. The whole grid is represented with a single entity by transforming it into a texture, with each cell being a
+pixel with a constant color and varying alpha, the latter being a quantized pheromone value, to simplify the visualization of pheromones.
+This decreases the communication step between the CPU and the GPU, by batching the required renderer calls from <code>w * h</code>
+(with <code>w</code> being the grid's width and <code>h</code> being the grid's height) to a single one. This allows for an enormous improvement and the
+possibility of updating the pheromones' visualization each frame, instead of once every 200 frames as it was done in a previous release.</p>
+
+                </div>
+
+                <div class="wasm-column">
+                    <div class="wasm-content">
+
+                        <div class="wasm-figure">
+                            <figure>
+                                <figcaption class="wasm-warning">This is the WebAssembly powered simulation currently running at near-native
+                                    speed in your browser!
+                                </figcaption>
+                                <iframe src="https://krABMaga.github.io/wasm_container.html?sim=antsforaging"
+                                        class="wasm-iframe" name="webgl" id="wasm-iframe"></iframe>
+                            </figure>
+                        </div>
+
+                        <a href="https://github.com/krABMaga/examples/tree/main/antsforaging"
+                        class="github-corner" aria-label="View source on Github">
+                            <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
+                                <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+                                <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+                                      fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+                                <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+                                      fill="currentColor" class="octo-body"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+            
+            
+        </div>
+
+    </div>
+</div>
+
+<script>
+    (function () {
+
+        // Wait for the iframe to fully load, by observing changes in the body tag since the wasm module is deferred.
+        const iframe = document.getElementById('wasm-iframe');
+        iframe.contentWindow.addEventListener('DOMContentLoaded', (event) => {
+            const targetNode = iframe.contentDocument.body;
+            const config = {childList: true, subtree: true};
+
+            const callback = function (mutationsList, observer) {
+                // Update the iframe div parent (and the iframe itself) size
+                const canvas = iframe.contentDocument.querySelector('canvas');
+                iframe.style.minWidth = canvas.style.width;
+                iframe.setAttribute("style","min-width:" + canvas.style.width);
+                const canvasObserver = new MutationObserver((mutlist, obs) => {
+                    iframe.style.height = canvas.clientHeight + "px";
+                });
+                canvasObserver.observe(canvas, {attributes: true});
+            };
+
+            const observer = new MutationObserver(callback);
+
+            observer.observe(targetNode, config);
+
+            const resizeCallback = () => {
+                const canvas = iframe.contentDocument.querySelector('canvas');
+                iframe.style.height = canvas.clientHeight + "px";
+            }
+
+            window.addEventListener('resize', resizeCallback);
+        });
+    })();
+</script>
+
+
+
+</div>
+    <div class="pagination">
+        <div class="pagination__buttons">
+            </div>
+    </div>
+<footer class="footer">
+                    <div class="footer__inner"><div class="copyright copyright--user">© krABMaga MIT License</div>
+    <script type="text/javascript" src="https://krABMaga.github.io/assets/js/main.js"></script>
+</div>
+                    
+
+                </footer></div>
+    </body>
+</html>

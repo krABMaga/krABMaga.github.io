@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <title>Benchmarks - krABMaga</title>
+    
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content=""/>
+
+    <meta property="og:title" content="
+     -&nbsp;Benchmarks" />
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;benchmarks&#x2F;"/>
+    <meta property="og:description" content=""/>
+    <link rel="preload" href="/assets/fonts/FiraCode-Regular.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="/assets/fonts/FiraCode-Bold.woff" as="font" type="font/woff" crossorigin>
+
+    <link rel="stylesheet" href="https://krABMaga.github.io/style.css">
+    <link rel="stylesheet" href=" https://krABMaga.github.io/color/orange.css">
+    <link rel="stylesheet" href="https://krABMaga.github.io/custom.css">
+    
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        
+    </head>
+    <body>
+        <div class="container full">
+
+<style>
+/* background: #211f1a
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.header {
+  /* overflow: hidden; */
+  padding: 10px 10px 0px 0px;
+  background: #211f1a ;
+  z-index:99;
+}
+
+.content {
+  z-index:0;
+  position:relative;
+  padding: 10px 0px 0px 0px;
+
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 90px 0px 0px;
+
+ 
+}
+
+@media(max-width: 683px) 
+{
+  .sticky {
+    padding: 10px 30px 0px 0px;
+  }
+}
+
+</style>
+
+
+ <header class="header" id="myHeader" style="background: #211f1a ;" >
+    <div class="header__inner">
+        <div class="header__logo">
+            <a href="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;">
+    <div class="logo">
+        <img style="width: 50;height:50px;margin-left: auto;margin-right: auto;" src="https://krABMaga.github.io/images/krabmaga.png"/>
+        <!-- krABMaga -->
+
+    </div>
+</a>
+        </div>
+        <div class="menu-trigger">menu</div>
+      </div>
+      
+    <nav class="menu">
+        <ul class="menu__inner menu__inner--desktop">
+            
+            
+                 
+                        <li>
+                            <a href="https://krABMaga.github.io">Home</a>
+                        </li>
+                <li>
+                            <a href="https://docs.rs/krabmaga">Docs</a>
+                        </li>
+                
+
+                <ul class="menu__sub-inner">
+                    <li class="menu__sub-inner-more-trigger">Examples ▾</li>
+                    <ul class="menu__sub-inner-more hidden">
+                        
+        <li>
+            <a href="https://krABMaga.github.io/template">Template</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/antsforaging">Ants Foraging</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/flockers">Flockers</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/forestfire">Forest fire</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/schelling">Schelling</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/sugarscape">Sugarscape</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/virusnetwork">Virus on a Network</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/wolfsheepgrass">Wolf Sheep Grass</a>
+        </li>
+                    </ul>
+                </ul>
+
+                <li></li>
+
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/model_exp">Model Exploration</a>
+                    </li>
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/benchmarks">Benchmarks</a>
+                    </li>
+                
+                 
+                    <li>
+                         <a href="https://krABMaga.github.io/contrib">Contributors</a>
+                    </li>
+                <!---->
+
+                <!---->
+                
+            </ul>
+
+        <ul class="menu__inner menu__inner--mobile">
+            
+        <li>
+            <a href="https://krABMaga.github.io">Home</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/template">Template</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/antsforaging">Ants Foraging</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/flockers">Flockers</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/forestfire">Forest fire</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/schelling">Schelling</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/sugarscape">Sugarscape</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/virusnetwork">Virus on a Network</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/wolfsheepgrass">Wolf Sheep Grass</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/model_exp">Model Exploration</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/benchmarks">Benchmarks</a>
+        </li>
+        <li>
+            <a href="https://krABMaga.github.io/contrib">Contributors</a>
+        </li>
+        </ul>
+    </nav>
+
+    </header>
+
+<script>
+  window.onscroll = function() {myFunction()};
+  
+  var header = document.getElementById("myHeader");
+  var sticky = header.offsetTop;
+  
+  function myFunction() {
+    if (window.pageYOffset > sticky) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+  }
+</script>
+
+
+<div class="content"><div class="post">
+    <h1 class="post-title">
+        <a href="https:&#x2F;&#x2F;krABMaga.github.io&#x2F;benchmarks&#x2F;">Benchmarks</a>
+    </h1>
+    
+    
+    <div class="post-meta">
+        <span class="post-date"></span>
+
+        <span class="post-author"></span>
+    </div>
+<div class="post-content">
+        <hr />
+<link rel="stylesheet" href="/benchmarks/benchmarks.css">
+<h1 id="abm-benchmark">ABM Benchmark<a class="zola-anchor" href="#abm-benchmark" aria-label="Anchor link for: abm-benchmark">§</a>
+</h1>
+<!-- 
+color code main index
+ -->
+<p>Frameworks' performance has been tested with different models configurations, starting with a <strong>field 100x100</strong> , <strong>1000 agents</strong>, and <strong>200 steps</strong>, keeping an agent <strong>density of 10%</strong>.
+The subsequent configurations are obtained by doubling the number of agents and changing the field dimensions to preserve the initial agent:</p>
+<ul>
+<li>Agents: 1000 - Field: 100x100</li>
+<li>Agents: 2000 - Field: 141x141</li>
+<li>Agents: 4000 - Field: 200x200</li>
+<li>Agents: 8000 - Field: 282x282</li>
+<li>Agents: 16000 - Field: 400x400</li>
+<li>Agents: 32000 - Field: 565x565</li>
+<li>Agents: 128000 - Field: 1131x1131</li>
+</ul>
+<p>Each experiment has been executed <strong>10 times</strong>, repeating the run in case of failure, to collect the average execution time for each model.</p>
+<p>ForestFire is the only example where there isn't a clear number of agents, but there is a parameter of the simulation for the density (to clarify, it is 70%). 
+You can see all the script and files used for benchmark all the engines at the <a href="https://github.com/krABMaga/abmcomparison">ABM_comparison</a>.</p>
+<p>We compared our results with the most commons frameworks for ABM:</p>
+<ul>
+<li><a href="https://cs.gmu.edu/~eclab/projects/mason/">MASON</a> is a fast discrete-event multiagent simulation library core written in Java</li>
+<li><a href="https://juliadynamics.github.io/Agents.jl/stable/">Agents.jl</a> is a pure Julia framework for agent-based modeling</li>
+<li><a href="https://repast.github.io/">Repast</a> is a tightly integrated, richly interactive, cross platform Java-based modeling system</li>
+<li><a href="https://ccl.northwestern.edu/netlogo/">Netlogo</a> is a multi-agent programmable modeling environment</li>
+<li><a href="https://mesa.readthedocs.io/en/latest/#">Mesa</a> is an agent-based modeling framework written in Python.</li>
+</ul>
+<p>There are two types of charts:</p>
+<ul>
+<li>Time: this chart plots the average time of simulations</li>
+<li>Speedup: this charts plots the speed up of krABMaga versus the others engines.</li>
+</ul>
+<p>You can choose one of the model using the radio buttons on the bottom of the chart and you can also choose which type of chart to display using the combobox.
+You can click on the various engine on the top legend to show or hide their corresponding values on the chart.</p>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<div>
+  <canvas id="myChart" style="background-color: white;"></canvas>
+</div>
+<div class="button-group" data-toggle="buttons" id="charts">
+    <div class="button">
+        <input type="radio" name="options" id="flockers" autocomplete="off" checked /> 
+        <label class="btn btn-default" for="flockers">Flockers
+        </label>
+    </div>
+    <div class="button">
+        <input type="radio" name="options" id="forestfire" autocomplete="off" /> 
+        <label class="btn btn-default" for="forestfire"> ForestFire
+        </label>
+    </div>
+    <div class="button">
+        <input type="radio" name="options" id="schelling" autocomplete="off" /> 
+        <label class="btn btn-default" for="schelling"> Schelling
+        </label>
+    </div>
+    <div class="button">
+        <input type="radio" name="options" id="wsg" autocomplete="off" /> 
+        <label class="btn btn-default" for="wsg"> Wsg
+        </label>
+    </div>
+</div>
+<select class="combotype select-css" value="time" id="combocharts">
+    <option value="time" id="timecombo" selected>Time</option>
+    <option value="speedup" id="speedupcombo">Speedup</option>
+</select>
+<script>
+var myChart;
+var real_data = [];
+var real_names = [];
+function drawAsync(chartName){
+    return new Promise((resolve,reject)=>{
+        //clear the array on each draw 
+        real_data = [];
+        real_names = [];
+        fetch("../csv/" + chartName + ".csv").then((result)=>{result.text().then((text)=>{
+            var a = text.split(/\r\n|\n/);
+            for (var i=2; i<a.length; i++){
+                var name = a[i].split(",")[0];
+                real_names.push(name);
+                //split the string by comma
+                formatted = a[i].replace(/,/g, '.');
+                //retrieve the decimal numbers from a[i] using regex
+                var numbers = formatted.match(/\d+\.\d+/g);
+                //convert the array of strings to an array of numbers
+                numbers = numbers.map(Number);
+                //create a new array from numbers taking every third elements (eliminate useless information like init ant step)
+                numbers2 = numbers.filter((x,i)=>i%3==2);
+                // create an array of pairs (x, y) from each element of numbers2 and a number that start from 1000 and multiply it by 2 at pow of i with 
+                // the result being the x coordinate of the point
+                dataset_pair = numbers2.map((x,i)=>[x,1000*Math.pow(2,i)]);
+                // create a struct
+                var my_data = [];
+                for (j=0; j<dataset_pair.length; j++) {
+                    my_data.push({x: dataset_pair[j][1], y: dataset_pair[j][0]});
+                }
+                real_data.push(my_data); 
+            }
+        })});
+        setTimeout(()=>{
+            resolve();
+        ;} , 1000
+        );
+    });
+}
+async function draw(chartName){
+    await drawAsync(chartName);
+    const labels = [
+        'Test',
+    ];
+
+    var details = [
+        {
+            name: "krABMaga",
+            col: 'rgba(255, 99, 132, 0.9)',
+            mrk: 'circle',
+        },
+        {
+            name: "MASON",
+            col: 'rgba(54, 162, 235, 0.9)',
+            mrk: 'cross',
+        },
+        {
+            name: "Agent.jl",
+            col: 'rgba(255, 206, 86, 0.9)',
+            mrk: 'crossRot',
+        },
+        {
+            name: "Repast",
+            col: 'rgba(75, 192, 192, 0.9)',
+            mrk: 'rectRot',
+        },
+        {
+            name: "Netlogo",
+            col: 'rgba(153, 102, 255, 0.9)',
+            mrk: 'star',
+        },
+        {
+            name: "Mesa",
+            col: 'rgba(255, 159, 64, 0.9)',
+            mrk: 'triangle',
+        },
+    ];
+
+    const datasets = real_data.map((x,i)=>{
+        return {
+            label: real_names[i],
+            data: x,
+            backgroundColor: details.filter((x)=>x.name==real_names[i]).map(x=>x.col),
+            borderColor: details.filter((x)=>x.name==real_names[i]).map(x=>x.col),
+            borderWidth: 1,
+            fill: false,
+            pointStyle: details.filter((x)=>x.name==real_names[i]).map(x=>x.mrk),
+            radius: 5,
+        }
+    });
+    const data = {
+        labels: labels,
+        datasets: datasets,
+    };
+
+    var title_y = "seconds";
+    if (document.getElementById("combocharts").value == "speedup"){
+        title_y = "speedup";
+    }
+
+    const config = {
+        type: 'scatter',
+        data: data,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    type: 'logarithmic',
+                    position: 'bottom',
+                    min: 950,
+                    max: 130000,
+                    title: {
+                        text: '# of agents',
+                        display: true,
+                    }
+                },
+                y: {
+                    type: 'logarithmic',
+                    min: 0,
+                    max: 100000,
+                    drawTicks: false,
+                    title: {
+                        text: title_y,
+                        display: true,
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: chartName
+                },
+            },       
+        },
+    };
+    myChart = new Chart(
+    document.getElementById('myChart'),
+    config,
+  );
+}
+// name of the file csv to retrieve data
+// this function is called on page load for the first time
+// use the buttons to change the csv loaded
+draw("flockers");
+//check on radio
+document.getElementById("charts").addEventListener('click', function (event) {
+    if (event.target && event.target.matches("input[type='radio']")) {
+        if (document.getElementById("combocharts").value == "time") {
+            myChart.destroy();
+            draw(event.target.id);
+            myChart.update();
+        }
+        else {
+            myChart.destroy();
+            draw(event.target.id + "speedup");
+            myChart.update();
+        }
+        
+}});
+//check on select option
+document.getElementById("combocharts").addEventListener('change', function (event) {
+    if (event.target && event.target.matches("select")) {
+        if (event.target.value == "time") {
+            var id = document.querySelector('input[name="options"]:checked').id;
+            myChart.destroy();
+            draw(id);
+            myChart.update();
+        }
+        else {
+            var id = document.querySelector('input[name="options"]:checked').id;
+            myChart.destroy();
+            draw(id + "speedup");
+            myChart.update();
+        }
+    }
+});
+</script>
+    </div>
+    
+    
+</div></div>
+    <div class="pagination">
+        <div class="pagination__buttons">
+            </div>
+    </div>
+<footer class="footer">
+                    <div class="footer__inner"><div class="copyright copyright--user">© krABMaga MIT License</div>
+    <script type="text/javascript" src="https://krABMaga.github.io/assets/js/main.js"></script>
+</div>
+                    
+
+                </footer></div>
+    </body>
+</html>
