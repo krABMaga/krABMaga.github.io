@@ -3,6 +3,14 @@ name: Update simulations
 on:
   repository_dispatch:
     types: [updated]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Manual update of site'
 
 env:
   CARGO_TERM_COLOR: always
