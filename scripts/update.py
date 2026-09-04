@@ -1,31 +1,47 @@
-from shutil import which
-from sys import exit
+#!/usr/bin/env python3
+
+import argparse
+import fileinput
 import os
+import re
 import subprocess
 from datetime import datetime
-import re
-import fileinput
-from shutil import copy, copytree
-import argparse
+from shutil import copy, copytree, which
+from sys import exit
+
 
 if os.name == "nt":
-    os.system('color')  # needed on Windows to activate colored terminal text
+    os.system("color")  # needed on Windows to activate colored terminal text
 
-# template shouldn't be built and the .github folder is not an example
-BLACKLIST = [".github", ".git", "target", "forestfire_bayesian",  "sir_ga_exploration", "sir_bayesian", "flockers_mpi"]
-WHITELIST = None
 
-parser = argparse.ArgumentParser(description='Update the wasm builds and chart data related to the simulations.')
-parser.add_argument('simulations', metavar='S', type=str, nargs='*',
-                    help='the name of the specific simulation to check')
+# Template shouldn't be built and the .github folder is not an example.
+BLACKLIST = [
+    ".github",
+    ".git",
+    "target",
+    "forestfire_bayesian",
+    "sir_ga_exploration",
+    "sir_bayesian",
+    "flockers_mpi",
+]
 
+parser = argparse.ArgumentParser(
+    description="Update the wasm builds and chart data related to the simulations."
+)
+parser.add_argument(
+    "simulations",
+    metavar="S",
+    type=str,
+    nargs="*",
+    help="the name of the specific simulation to check",
+)
 args = parser.parse_args()
+
 WHITELIST = args.simulations
 
 
 class OutputHandler:
-
-    # Special terminal color codes, used if we're running the script in a local environment
+    # Special terminal color codes, used if we're running the script in a local environment.
     RED = "\033[1;31m"
     YELLOW = "\033[1;33m"
     BLUE = "\033[1;34m"
@@ -36,14 +52,21 @@ class OutputHandler:
     REVERSE = "\033[;7m"
 
     def __init__(self):
-        self.github_runner = os.environ.get('GITHUB_ACTIONS')
-        self.info(f"Running in a GitHub runner environment: {True if self.github_runner else False}")
+        self.github_runner = os.environ.get("GITHUB_ACTIONS")
+        self.info(
+            f"Running in a GitHub runner environment: "
+            f"{bool(self.github_runner)}"
+        )
 
     def print(self, message_type: str, message: str):
         if self.github_runner:
             print(f"::{message_type} ::{message}")
         else:
-            color = OutputHandler.YELLOW if type == "warning" else OutputHandler.RED
+            color = (
+                OutputHandler.YELLOW
+                if message_type == "warning"
+                else OutputHandler.RED
+            )
             print(f"{color}{message}{OutputHandler.RESET}")
 
     def error(self, message: str):
@@ -61,9 +84,10 @@ class OutputHandler:
     def success(message: str):
         print(f"{OutputHandler.GREEN}{message}{OutputHandler.RESET}")
 
+
     class Group:
         def __init__(self, group_title: str):
-            self.github_runner = os.environ.get('GITHUB_ACTIONS')
+            self.github_runner = os.environ.get("GITHUB_ACTIONS")
             self.group_title = group_title
 
         def __enter__(self):
@@ -75,9 +99,11 @@ class OutputHandler:
                 print("::endgroup::")
 
 
-# Allows defining the current working directory for a specific scope: https://stackoverflow.com/a/13197763/11826809
+# Allows defining the current working directory for a specific scope:
+# https://stackoverflow.com/a/13197763/11826809
 class cd:
-    """Context manager for changing the current working directory"""
+    """Context manager for changing the current working directory."""
+
     def __init__(self, new_path):
         self.newPath = os.path.expanduser(new_path)
 
@@ -97,131 +123,277 @@ if which("cargo") is None:
 if which("git") is None:
     outputHandler.error("Git must be installed to build the simulations!")
 
+if which("wasm-opt") is None:
+    outputHandler.error(
+        "wasm-opt must be installed to optimize the WASM builds!"
+    )
+
 if not os.path.exists("config.toml"):
-    outputHandler.error("You must execute this script from the root folder of the site project!")
+    outputHandler.error(
+        "You must execute this script from the root folder of the site project!"
+    )
+
 
 with outputHandler.Group("Installing cargo-make"):
     cargoMakeInstall = subprocess.run(["cargo", "install", "cargo-make"])
+
     if cargoMakeInstall.returncode != 0:
         outputHandler.error("Cargo-make failed to install!")
 
+
 with outputHandler.Group("Installing wasm32-unknown-unknown target"):
-    wasm32TargetInstall = subprocess.run(["rustup", "target", "install", "wasm32-unknown-unknown"])
+    wasm32TargetInstall = subprocess.run(
+        ["rustup", "target", "install", "wasm32-unknown-unknown"]
+    )
+
     if wasm32TargetInstall.returncode != 0:
         outputHandler.error("Wasm32-unknown-unknown target failed to install!")
 
+
 with outputHandler.Group("Installing wasm-bindgen-cli"):
-    wasmBindgenInstall = subprocess.run(["cargo", "install", "wasm-bindgen-cli"])
+    wasmBindgenInstall = subprocess.run(
+        ["cargo", "install", "wasm-bindgen-cli"]
+    )
+
     if wasmBindgenInstall.returncode != 0:
         outputHandler.error("Cargo-make failed to install!")
 
-# Clone the examples repo
+
+# Clone the examples repo.
 if not os.path.exists("tmp_examples"):
     outputHandler.info("Examples haven't been cloned yet, cloning now...")
+
     with outputHandler.Group("Clone examples repository"):
-        subprocess.run(["git", "clone", "https://github.com/krABMaga/examples", "tmp_examples"])
-else:  # Project exists already, try to update it
+        subprocess.run(
+            ["git", "clone", "https://github.com/krABMaga/examples", "tmp_examples"]
+        )
+else:
+    # Project exists already, try to update it.
     outputHandler.info("Updating examples folder...")
+
     with cd("tmp_examples"):
         with outputHandler.Group("Update examples repository"):
             pullProcess = subprocess.run(["git", "pull"])
+
             if pullProcess.returncode != 0:
-                outputHandler.error("The \"tmp_examples\" folder is in an invalid state (it probably has unstaged "
-                                    "changes), delete it!")
-        """ with outputHandler.Group("Forcing a specific branch"):
-            pullProcess = subprocess.run(["git", "checkout", "visualization"])
-            if pullProcess.returncode != 0:
-                outputHandler.error("The checkout step failed!") """
+                outputHandler.error(
+                    'The "tmp_examples" folder is in an invalid state '
+                    "(it probably has unstaged changes), delete it!"
+                )
+
+        # with outputHandler.Group("Forcing a specific branch"):
+        #     pullProcess = subprocess.run(["git", "checkout", "visualization"])
+        #
+        #     if pullProcess.returncode != 0:
+        #         outputHandler.error("The checkout step failed!")
 
 
 dirlist = [
-   simulation
-   for simulation in os.listdir("tmp_examples")
-   if os.path.isdir(os.path.join("tmp_examples", simulation))
-   and simulation not in BLACKLIST
-   and (not WHITELIST or simulation in WHITELIST)
+    simulation
+    for simulation in os.listdir("tmp_examples")
+    if os.path.isdir(os.path.join("tmp_examples", simulation))
+    and simulation not in BLACKLIST
+    and (not WHITELIST or simulation in WHITELIST)
 ]
 
 changedSims = set()
 
-# Build wasm and copy benchmark data
+# Build wasm and copy benchmark data.
 with cd("tmp_examples"):
-
     with outputHandler.Group("Building all simulations..."):
-        # Build the list of packages to process with the -p flag prefixed
-        packages = [arg for sublist in map(lambda x: ["-p", x], dirlist) for arg in sublist]
-        buildProcess = subprocess.run(["cargo", "build", *packages, "--target", "wasm32-unknown-unknown", "--features", "visualization_wasm", "--release"])
+        # Build the list of packages to process with the -p flag prefixed.
+        packages = [
+            arg
+            for sublist in map(lambda x: ["-p", x], dirlist)
+            for arg in sublist
+        ]
+
+        buildProcess = subprocess.run(
+            [
+                "cargo",
+                "build",
+                *packages,
+                "--target",
+                "wasm32-unknown-unknown",
+                "--features",
+                "visualization_wasm",
+                "--release",
+            ]
+        )
+
         if buildProcess.returncode != 0:
-            outputHandler.warning(f"Simulations failed to build, exiting...")
+            outputHandler.warning("Simulations failed to build, exiting...")
             exit()
+
         outputHandler.info("Simulations built successfully.")
 
     for simulation in dirlist:
         with cd("target"):
-            with outputHandler.Group(f"Generating wasm artifacts for {simulation}..."):
-                simulationWasmFilePath = os.path.join("wasm32-unknown-unknown", "release", simulation + ".wasm")
-                wasmProcess = subprocess.run(["wasm-bindgen", "--out-dir", "pkg", "--out-name", simulation, "--target", "web", "--no-typescript", simulationWasmFilePath])
+            with outputHandler.Group(
+                f"Generating wasm artifacts for {simulation}..."
+            ):
+                simulationWasmFilePath = os.path.join(
+                    "wasm32-unknown-unknown",
+                    "release",
+                    simulation + ".wasm",
+                )
+
+                wasmProcess = subprocess.run(
+                    [
+                        "wasm-bindgen",
+                        "--out-dir",
+                        "pkg",
+                        "--out-name",
+                        simulation,
+                        "--target",
+                        "web",
+                        "--no-typescript",
+                        simulationWasmFilePath,
+                    ]
+                )
+
                 if wasmProcess.returncode != 0:
-                    outputHandler.warning(f"Simulation {simulation} failed to generate wasm artifacts, skipping...")
+                    outputHandler.warning(
+                        f"Simulation {simulation} failed to generate "
+                        "wasm artifacts, skipping..."
+                    )
                     continue
+
                 outputHandler.info("Wasm artifacts generated successfully.")
 
             sourceWasmJs = os.path.join("pkg", simulation + ".js")
             sourceWasmBinary = os.path.join("pkg", simulation + "_bg.wasm")
-            targetWasmJs = os.path.join("..", "..", "static", "wasm", simulation + ".js")
-            targetWasmBinary = os.path.join("..", "..", "static", "wasm", simulation + "_bg.wasm")
+            targetWasmJs = os.path.join(
+                "..",
+                "..",
+                "static",
+                "wasm",
+                simulation + ".js",
+            )
+            targetWasmBinary = os.path.join(
+                "..",
+                "..",
+                "static",
+                "wasm",
+                simulation + "_bg.wasm",
+            )
 
-            # filecmp compares metadata, which will definitely be different since we just cloned the examples repo. Wasm
-            # binaries aren't large, so we just open them and compare the contents.
-            if (os.path.exists(targetWasmJs) is False or
-                    (open(sourceWasmJs, "rb").read() == open(targetWasmJs, "rb").read()) is False):
+            with outputHandler.Group(
+                f"Optimizing wasm artifact for {simulation}..."
+            ):
+                wasmOptProcess = subprocess.run(
+                    [
+                        "wasm-opt",
+                        "-Oz",
+                        "-o",
+                        sourceWasmBinary,
+                        sourceWasmBinary,
+                    ]
+                )
+
+                if wasmOptProcess.returncode != 0:
+                    outputHandler.warning(
+                        f"Simulation {simulation} failed wasm optimization, "
+                        "skipping..."
+                    )
+                    continue
+
+                outputHandler.info("Wasm optimized successfully.")
+
+            # filecmp compares metadata, which will definitely be different
+            # since we just cloned the examples repo. Wasm binaries aren't
+            # large, so we just open them and compare the contents.
+            if (
+                not os.path.exists(targetWasmJs)
+                or open(sourceWasmJs, "rb").read()
+                != open(targetWasmJs, "rb").read()
+            ):
                 os.replace(sourceWasmJs, targetWasmJs)
                 changedSims.add(simulation)
 
-            if (os.path.exists(targetWasmBinary) is False or
-                    (open(sourceWasmBinary, "rb").read() == open(targetWasmBinary, "rb").read()) is False):
+            if (
+                not os.path.exists(targetWasmBinary)
+                or open(sourceWasmBinary, "rb").read()
+                != open(targetWasmBinary, "rb").read()
+            ):
                 os.replace(sourceWasmBinary, targetWasmBinary)
                 changedSims.add(simulation)
 
         with cd(simulation):
-            # update the assets files
+            # Update the assets files.
             if simulation in changedSims:
                 sourceAssets = "assets"
                 targetAssets = os.path.join("..", "..", "static", "assets")
+
                 copytree(sourceAssets, targetAssets, dirs_exist_ok=True)
-                outputHandler.success(f"Simulation \"{simulation}\" wasm binaries updated successfully.")
+
+                outputHandler.success(
+                    f'Simulation "{simulation}" wasm binaries updated successfully.'
+                )
 
             try:
                 for i in os.listdir(os.path.join("benches", "results")):
                     sourceCsv = os.path.join("benches", "results", i)
-                    targetCsvFolder = os.path.join("..", "..", "static", "csv", simulation)
+                    targetCsvFolder = os.path.join(
+                        "..", "..", "static", "csv", simulation
+                    )
                     targetCsv = os.path.join(targetCsvFolder, i)
-                    if (os.path.exists(targetCsv) is False or
-                            (open(sourceCsv, "rb").read() == open(targetCsv, "rb").read()) is False):
+
+                    if (
+                        not os.path.exists(targetCsv)
+                        or open(sourceCsv, "rb").read()
+                        != open(targetCsv, "rb").read()
+                    ):
                         if not os.path.exists(targetCsvFolder):
-                            os.mkdir(targetCsvFolder)  # copy does not automatically create intermediary folders
+                            os.mkdir(targetCsvFolder)
+
                         copy(sourceCsv, targetCsv)
                         changedSims.add(simulation)
-                outputHandler.success(f"Benchmarks found for simulation \"{simulation}\"!")
-            except FileNotFoundError:
-                outputHandler.warning(f"Benchmarks not found for simulation \"{simulation}\"!")
-        outputHandler.success(f"Simulation {simulation} processed successfully.")
 
-# update the changed simulations markdown files last_updated variable and set it to today
+                outputHandler.success(
+                    f"Benchmarks found for simulation {simulation}!"
+                )
+
+            except FileNotFoundError:
+                outputHandler.warning(
+                    f"Benchmarks not found for simulation {simulation}!"
+                )
+
+        outputHandler.success(
+            f"Simulation {simulation} processed successfully."
+        )
+
+
+# Update the changed simulations' markdown files' last_updated variable
+# and set it to today.
 for sim in changedSims:
     simContent = os.path.join("content", sim + ".md")
-    # This simulation may not yet have an associated markdown file, in this case skip it.
+
+    # This simulation may not yet have an associated markdown file;
+    # in this case skip it.
     if not os.path.exists(simContent):
-        outputHandler.warning(f"Simulation \"{sim}\" does not have an associated markdown file, skipping last_updated "
-                              f"job...")
+        outputHandler.warning(
+            f'Simulation "{sim}" does not have an associated markdown file, '
+            "skipping last_updated job..."
+        )
         continue
 
-    r = re.compile('last_updated = (.*)')
+    r = re.compile(r"last_updated = (.*)")
+
     for line in fileinput.input(simContent, inplace=True):
         match = r.match(line)
-        print('last_updated = "' + datetime.today().strftime('%Y-%m-%d') + '"' if match else line.replace('\n', ''))
+        print(
+            'last_updated = "'
+            + datetime.today().strftime("%Y-%m-%d")
+            + '"'
+            if match
+            else line.replace("\n", "")
+        )
+
 
 if len(changedSims) > 0:
-    outputHandler.success("Simulations updated: " + ", ".join(changedSims))
+    outputHandler.success(
+        "Simulations updated: " + ", ".join(changedSims)
+    )
 else:
     outputHandler.success("No simulations updated.")
