@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
-        description: 'Log level'     
+        description: 'Log level'
         required: true
         default: 'warning'
       tags:
@@ -23,7 +23,7 @@ jobs:
       - name: Ubuntu Required Deps
         run: |
           sudo apt update
-          sudo apt install pkg-config libx11-dev libasound2-dev libudev-dev
+          sudo apt install pkg-config libx11-dev libasound2-dev libudev-dev binaryen
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
