@@ -12,7 +12,7 @@ jobs:
         with:
           persist-credentials: false
       - name: build_and_deploy
-        uses: shalzz/zola-deploy-action@06dffc1b49e4f61b31dcf3a6c824194a78216632 # v0.23.1
+        uses: shalzz/zola-deploy-action@74526e63f38f84b82476349bbcd886b82040ff98 # v0.22.1
         env:
           # Target branch
           PAGES_BRANCH: gh-pages
