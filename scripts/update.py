@@ -284,7 +284,7 @@ with cd("tmp_examples"):
                 wasmOptProcess = subprocess.run(
                     [
                         "wasm-opt",
-                        "-Oz",
+                        "-O2",
                         "-o",
                         sourceWasmBinary,
                         sourceWasmBinary,
